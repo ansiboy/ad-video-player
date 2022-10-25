@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.square {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.square div {
+    width: 50%;
+    height: 50%;
+}
+
+.square div video {
+    width: 100%;
+    height: 100%;
+}
+
+.single {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.single video {
+    width: 100%;
+    height: 100%;
+}

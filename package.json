@@ -1,0 +1,24 @@
+{
+  "name": "ad-video-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "auto-launch": "^5.0.5",
+    "electron": "^3.1.13"
+  },
+  "devDependencies": {
+    "@types/auto-launch": "^5.0.2",
+    "electron": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/zhuo-wang/ad-video-player"
+  },
+  "author": "",
+  "license": "ISC"
+}
