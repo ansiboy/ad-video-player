@@ -9,34 +9,46 @@
 </head>
 
 <body>
-    <div class="square">
+    <div id="play-item0" class="single" style="display:none">
+        <video loop>
+            <source src="./videos/single/1.mp4" />
+        </video>
+    </div>
+    <div id="play-item1" class="square" style="display: none;">
         <div>
-            <video autoplay loop>
+            <video loop>
                 <source src="./videos/square/1.mp4" />
             </video>
         </div>
         <div>
-            <video autoplay loop>
+            <video loop>
                 <source src="./videos/square/2.mp4" />
             </video>
         </div>
         <div>
-            <video autoplay loop>
+            <video loop>
                 <source src="./videos/square/3.mp4" />
             </video>
         </div>
         <div>
-            <video autoplay loop>
+            <video loop>
                 <source src="./videos/square/4.mp4" />
             </video>
         </div>
     </div>
-    <div class="single" style="display:none">
-        <video autoplay loop>
-            <source src="./videos/single/1.mp4" />
-        </video>
+    <div id="play-item2" class="three" style="display: none;">
+        <div style="background-color:rebeccapurple;">
+
+        </div>
+        <div style="background-color:red;">
+
+        </div>
+        <div style="background-color:cadetblue;">
+
+        </div>
     </div>
 
+    <script src="./index.js"></script>
 </body>
 
 </html>
