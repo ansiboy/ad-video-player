@@ -43,7 +43,7 @@ const createWindow = async () => {
             }
         ]
     }]);
-    // win.setMenu(menu);
+    win.setMenu(menu);
     win.loadFile('public/index.html')
 }
 
