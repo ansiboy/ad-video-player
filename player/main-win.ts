@@ -44,7 +44,7 @@ const createWindow = async () => {
         ]
     }]);
     win.setMenu(menu);
-    win.loadFile('build/index.html')
+    win.loadFile('build/front/index.html')
 }
 
 app.whenReady().then(() => {

@@ -4,7 +4,7 @@ import { OneSplitView } from './ad-views/one-split-view';
 import VideoPlayer from './ad-players/video-player';
 import { FourSplitView } from './ad-views/four-split-view';
 import ViewCarousel, { ViewCarouselData } from './view-carousel';
-import { AdView, AdViewData } from './ad-views/ad-view';
+import { AdViewData } from './ad-views/ad-view';
 import { ThreeSplitView } from './ad-views/three-split-view';
 import ImagePlayer from './ad-players/image-player';
 
