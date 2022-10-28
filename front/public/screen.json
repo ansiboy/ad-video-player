@@ -1,0 +1,83 @@
+[
+    {
+        "type": "ThreeSplitView",
+        "props": {
+            "playSeconds": 15,
+            "children": [
+                {
+                    "type": "ImagePlayer",
+                    "props": {
+                        "imagePaths": [
+                            "./medias/three/1.png",
+                            "./medias/three/2.png",
+                            "./medias/three/3.png"
+                        ]
+                    }
+                },
+                {
+                    "type": "ImagePlayer",
+                    "props": {
+                        "imagePaths": [
+                            "./medias/three/2.png",
+                            "./medias/three/3.png"
+                        ]
+                    }
+                },
+                {
+                    "type": "ImagePlayer",
+                    "props": {
+                        "imagePaths": [
+                            "./medias/three/4.png"
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "type": "OneSplitView",
+        "props": {
+            "playSeconds": 12,
+            "children": [
+                {
+                    "type": "VideoPlayer",
+                    "props": {
+                        "videoPath": "./medias/single/1.mp4"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "type": "FourSplitView",
+        "props": {
+            "playSeconds": 14,
+            "children": [
+                {
+                    "type": "VideoPlayer",
+                    "props": {
+                        "videoPath": "./medias/single/1.mp4"
+                    }
+                },
+                {
+                    "type": "VideoPlayer",
+                    "props": {
+                        "videoPath": "./medias/single/2.mp4"
+                    }
+                },
+                {
+                    "type": "VideoPlayer",
+                    "props": {
+                        "videoPath": "./medias/single/3.mp4"
+                    }
+                },
+                {
+                    "type": "VideoPlayer",
+                    "props": {
+                        "videoPath": "./medias/single/4.mp4"
+                    }
+                }
+            ]
+        }
+    }
+]

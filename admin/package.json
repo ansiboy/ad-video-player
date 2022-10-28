@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set BUILD_PATH=../player/build/admin&&react-scripts build",
+    "build": "set BUILD_PATH=../player/web-server/static&&react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

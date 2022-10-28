@@ -60,7 +60,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "set BUILD_PATH=../player/build/front&& node scripts/build.js",
+    "build": "set BUILD_PATH=../player/build&& node scripts/build.js",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {

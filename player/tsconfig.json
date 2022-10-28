@@ -3,6 +3,8 @@
         "target": "ESNext",
         "module": "commonjs",
         "moduleResolution": "Node",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true
     }
 }
