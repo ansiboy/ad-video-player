@@ -4,6 +4,8 @@
         "module": "commonjs",
         "moduleResolution": "Node",
         "esModuleInterop": true,
-        "jsx": "react"
+        "jsx": "react",
+        "strict": true,
+        "strictPropertyInitialization": false
     }
 }

@@ -1,14 +1,11 @@
 import React from "react";
 import { componentChildrenArray } from "../common";
 import { AdView } from "./ad-view";
-import "./four-split-view.scss";
+import "./three-split-view.scss";
 
-
-/** 四分屏视图 */
-export class FourSplitView extends AdView {
-
-    className: string = "square";
-
+/** 三屏广告 */
+export class ThreeSplitView extends AdView {
+    className: string = "three";
     renderChildren(): React.ReactNode {
         let children = componentChildrenArray(this.props.children);
         return <>
@@ -21,9 +18,7 @@ export class FourSplitView extends AdView {
             <div className="item">
                 {children[2]}
             </div>
-            <div className="item">
-                {children[3]}
-            </div>
         </>
     }
+
 }

@@ -1,36 +1,28 @@
 import './app.scss';
 import React from 'react';
-import { OneSplitView } from './ad-views/one-split-view';
-import VideoPlayer from './ad-players/video-player';
-import { FourSplitView } from './ad-views/four-split-view';
-import ViewCarousel, { ViewCarouselData } from './view-carousel';
-import { AdViewData } from './ad-views/ad-view';
-import { ThreeSplitView } from './ad-views/three-split-view';
-import ImagePlayer from './ad-players/image-player';
+import { ComponentData } from './component-parse';
+import { Route, Routes } from 'react-router-dom';
+import { paths } from './common';
+import MasterPage from './pages/admin/master';
+import EditPage from './pages/admin/edit';
+import PasswordPage from './pages/admin/password';
+import RemotePage from './pages/admin/remote';
+import LoginPage from './pages/admin/login';
+import HomePage from './pages/home';
 
-function App() {
-
-  let carouselData: ViewCarouselData = { views: [] };
-  let oneViewData: AdViewData = { players: [] };
-  let threeViewData: AdViewData = { players: [] };
-  let fourViewData: AdViewData = { players: [] };
-
-  return <ViewCarousel {...{ data: carouselData }}>
-    <ThreeSplitView playSeconds={15} carouselData={carouselData} data={threeViewData} >
-      <ImagePlayer imagePaths={["./medias/three/1.png", "./medias/three/2.png", "./medias/three/3.png"]} viewData={threeViewData} />
-      <ImagePlayer imagePaths={["./medias/three/2.png", "./medias/three/3.png"]} viewData={threeViewData} />
-      <ImagePlayer imagePaths={["./medias/three/4.png"]} viewData={threeViewData} />
-    </ThreeSplitView>
-    <OneSplitView playSeconds={12} carouselData={carouselData} data={oneViewData} >
-      <VideoPlayer videoPath="./medias/single/1.mp4" viewData={oneViewData} />
-    </OneSplitView>
-    <FourSplitView playSeconds={14} carouselData={carouselData} data={fourViewData}>
-      <VideoPlayer videoPath="./medias/square/1.mp4" viewData={fourViewData} />
-      <VideoPlayer videoPath="./medias/square/2.mp4" viewData={fourViewData} />
-      <VideoPlayer videoPath="./medias/square/3.mp4" viewData={fourViewData} />
-      <ImagePlayer imagePaths={["./medias/three/4.png"]} viewData={threeViewData} />
-    </FourSplitView>
-  </ViewCarousel>
+interface Props {
+  componentData: ComponentData
 }
 
-export default App;
+export default function App(props: Props) {
+  return <Routes>
+    <Route path={paths.home} element={<HomePage componentData={props.componentData} />} />
+    <Route path={paths.admin.login} element={<LoginPage />} />
+    <Route element={<MasterPage />} >
+      <Route path={paths.admin.edit} element={<EditPage />} />
+      <Route path={paths.admin.password} element={<PasswordPage />} />
+      <Route path={paths.admin.remote} element={<RemotePage />} />
+    </Route>
+  </Routes>
+}
+

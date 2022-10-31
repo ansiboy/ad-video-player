@@ -1,0 +1,23 @@
+#root {
+    .ant-carousel {
+        .slick-dots {
+            li button {
+                background-color: blue;
+                height: 6px;
+            }
+
+            li.slick-active button {
+                background-color: blue;
+                opacity: 0.4;
+                height: 6px;
+            }
+        }
+
+        .slick-dots-bottom {
+            // bottom: 4px;
+            margin-bottom: 2px;
+        }
+    }
+
+
+}

@@ -8,7 +8,7 @@ interface Props extends AdPlayerProps {
 
 export default class VideoPlayer extends AdPlayer<Props> {
 
-    private videoElement?: HTMLVideoElement = undefined;
+    private videoElement: HTMLVideoElement;
 
     play() {
         if (!this.videoElement)

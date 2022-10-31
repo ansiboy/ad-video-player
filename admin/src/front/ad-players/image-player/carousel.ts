@@ -1,10 +1,9 @@
 
 //TODO: 如果 items 为0,或者为 1 的情况。
 //import cm = require('chitu.mobile');
-import "./carousel.scss";
 
 class Errors {
-    static argumentNull(parameterName: string) {
+    static argumentNull(parameterName) {
         let msg = `Argument '${parameterName}' cannt be null.`;
         return new Error(msg);
     }
@@ -17,14 +16,14 @@ export class Carousel {
     private playTimeId: number = 0;// 0 为停止中，－1 为已停止，非 0 为播放中。
     private playing = false;
     private paned = false;
-    private window_width: number;// = window.outerWidth; //$(window).width();
-    private active_position: number = 0; // 记录活动页的位置（按页面的百份比）
-    private active_index: number = 0;
+    private window_width;// = window.outerWidth; //$(window).width();
+    private active_position: number; // 记录活动页的位置（按页面的百份比）
+    private active_index: number;
     private items: HTMLElement[];
     private indicators: HTMLElement[];
     private is_pause: boolean = false;
-    private autoplay?: boolean;
-    private onPlaying?: (a: number) => void;
+    private autoplay: boolean;
+    private onPlaying: (a: number) => void;
 
 
     constructor(element: HTMLElement, options: { autoplay?: boolean, thisindex?: number, onPlaying?: (a: number) => void }) {
@@ -48,7 +47,7 @@ export class Carousel {
 
         this.active_index = this.active_index >= 0 ? this.active_index : 0;
         let thisindex = options.thisindex;
-        if (thisindex) {
+        if (options.thisindex) {
             this.active_index = thisindex - 1;
         }
 
@@ -76,9 +75,9 @@ export class Carousel {
         }
     }
     private listenTouch(element: HTMLElement) {
-        let startY: number, currentY: number;
-        let startX: number, currentX: number;
-        let moving: 'horizontal' | 'vertical' | null;
+        let startY, currentY;
+        let startX, currentX;
+        let moving: 'horizontal' | 'vertical';
 
         let horizontal_swipe_angle = 35;
         let vertical_pull_angle = 65;
@@ -104,7 +103,7 @@ export class Carousel {
             }
         }, { passive: true })
 
-        var calculateAngle = (x: number, y: number) => {
+        var calculateAngle = (x, y) => {
             let d = Math.atan(Math.abs(y / x)) / 3.14159265 * 180;
             return d;
         }

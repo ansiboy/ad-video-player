@@ -12,3 +12,15 @@ export function componentChildrenArray(children: React.ReactNode): ReactElement[
     return [children as ReactElement];
 
 }
+
+export let paths = {
+    home: "/",
+    admin: {
+        login: "/admin/login",
+        edit: "/admin/edit",
+        password: "/admin/password",
+        remote: "/admin/remote",
+    }
+
+}
+

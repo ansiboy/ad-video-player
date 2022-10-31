@@ -10,7 +10,7 @@ interface Props extends AdPlayerProps {
 export default class ImagePlayer extends AdPlayer<Props> {
 
     private carouselElement?: HTMLElement = undefined;
-    private carousel?: Carousel = undefined;
+    private carousel: Carousel;
 
     play() {
         if (!this.carousel)
