@@ -1,8 +1,7 @@
 import React, { ReactElement } from "react";
 import { Callback } from "maishu-toolkit";
-import { AdPlayer } from "./ad-players/ad-player";
-import ViewCarousel from "./view-carousel";
-import { AdView } from "./ad-views/ad-view";
+import type { AdPlayer } from "./ad-players/ad-player";
+import type ViewCarouselDesign from "./design-components/view-carousel";
 
 export function componentChildrenArray(children: React.ReactNode): ReactElement[] {
     if (children == null)
@@ -28,11 +27,7 @@ export let paths = {
 
 export let componentSelected = new Callback<{ id: string, component: AdPlayer<any> }>();
 
-// export function componentRelateionContext(parent: React.Component) {
-//     let children: React.Component[] = [];
-//     let c = React.createContext({ parent, children });
-//     return c;
-// }
-
-
 export let ComponentRelateion = React.createContext<{ parent: React.Component, children: React.Component[] }>(null as any);
+
+type T = { setCarousel?: (carousel: ViewCarouselDesign) => void };
+export let EditorPageContext = React.createContext<T>(null as any);

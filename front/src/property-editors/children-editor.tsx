@@ -1,7 +1,7 @@
 import { Button, Form, List, Radio, Row, Space } from "antd";
 import React from "react";
 import { ComponentData } from "../component-parse";
-import { componentPropertyChanged, typeNames } from "../type-names";
+import { typeNames } from "../type-names";
 import { EditorProps, EditorState } from "./property-editor";
 
 type Props = EditorProps<ComponentData["props"]["children"]>;
@@ -12,11 +12,11 @@ export class ChildrenEditor extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.state = { value: props.propertyValue };
+        this.state = { propertyValue: props.propertyValue };
     }
 
     render(): React.ReactNode {
-        let value = this.state.value || [];
+        let value = this.state.propertyValue || [];
         return <List dataSource={value} renderItem={childComponentData => {
             return <List.Item>
                 <Radio.Group value={childComponentData.type}

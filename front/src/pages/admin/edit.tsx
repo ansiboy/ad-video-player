@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Col, Row, PageHeader, Button, Menu, Dropdown, Modal, Empty } from "antd";
 import { DeleteOutlined, ArrowLeftOutlined, ArrowRightOutlined, LineOutlined, PlusOutlined } from "@ant-design/icons";
 import { ComponentData, ComponentProps, loadComponentData, parseComponentData } from "../../component-parse";
-import { componentSelected } from "../../common";
+import { componentSelected, EditorPageContext } from "../../common";
 import "./edit.scss";
 import { componentPropertyChanged } from "../../type-names";
 import { PropertyEditorPanel } from "./edit/property-editor-panel";
+import { Callback } from "maishu-toolkit";
+import ViewCarouselDesign from "../../design-components/view-carousel";
 
 const contentStyle: React.CSSProperties = {
     lineHeight: '160px',
@@ -13,10 +15,9 @@ const contentStyle: React.CSSProperties = {
     background: '#364d79',
 };
 
-const propertyEditors = {}
-
-
 export default function EditPage() {
+
+    let carousel: ViewCarouselDesign;
 
     let menu = <Menu items={[
         { key: '1', label: "16:9" },
@@ -24,10 +25,12 @@ export default function EditPage() {
 
     let [pageData, setPageData] = useState(null as ComponentData | null);
     let [selectedComponentData, setSelectedComponentData] = useState(null as ComponentData | null);
+    let [screensCount, setScreensCount] = useState(0);
 
     useEffect(() => {
         loadComponentData().then(pageData => {
             setPageData(pageData);
+            setScreensCount((pageData.props.children || []).length);
 
             componentSelected.add(args => {
                 let c = findComponentData(args.id, pageData as ComponentData);
@@ -47,9 +50,21 @@ export default function EditPage() {
             })
         })
 
-
-
     }, [])
+
+    function nextScreen() {
+        if (!carousel)
+            return;
+
+        carousel.nextScreen();
+    }
+
+    function previousScreen() {
+        if (!carousel)
+            return;
+
+        carousel.previousScreen();
+    }
 
     return <>
         <Modal title="添加屏幕" okText="确定" cancelText="取消" >
@@ -69,14 +84,24 @@ export default function EditPage() {
                         <Button>屏幕比例 16:9</Button>
                     </Dropdown>,
                     <Button key="spliter" icon={<LineOutlined />}>分割线</Button>,
-                    <Button key="previous-screen" icon={<ArrowLeftOutlined />}>上一屏</Button>,
-                    <Button key="next-screen" icon={<ArrowRightOutlined />}>下一屏</Button>,
+                    <Button key="previous-screen" icon={<ArrowLeftOutlined />}
+                        disabled={screensCount <= 1}
+                        onClick={e => previousScreen()}>上一屏</Button>,
+                    <Button key="next-screen" icon={<ArrowRightOutlined />}
+                        disabled={screensCount <= 1}
+                        onClick={e => nextScreen()}>下一屏</Button>,
                     <Button key="add-screen" icon={<PlusOutlined />}>添加</Button>,
                     <Button key="delete-screen" icon={<DeleteOutlined />}>删除</Button>,
                 ]} />
-                <div style={{ paddingLeft: 20, paddingRight: 20 }}>
-                    {renderComponentData(pageData)}
-                </div>
+                <EditorPageContext.Provider value={{
+                    setCarousel: (c: ViewCarouselDesign) => {
+                        carousel = c;
+                    }
+                }}>
+                    <div style={{ paddingLeft: 20, paddingRight: 20 }}>
+                        {renderComponentData(pageData)}
+                    </div>
+                </EditorPageContext.Provider>
             </Col>
             <Col span={3} >
                 <PropertyEditorPanel componentData={selectedComponentData} />

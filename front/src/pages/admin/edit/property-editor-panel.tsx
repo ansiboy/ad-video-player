@@ -5,7 +5,6 @@ import componentPropertyEditors, { PropertyEditorInfo } from "../../../component
 import { Collapse } from 'antd';
 import { EditorProps, EditorState } from "../../../property-editors/property-editor";
 import { componentPropertyChanged } from "../../../type-names";
-import { InputEditor } from "../../../property-editors/input-editor";
 
 /** 属性编辑器面板 */
 export function PropertyEditorPanel(props: { componentData: ComponentData | null }) {
@@ -41,6 +40,11 @@ function createEditor(editorInfo: PropertyEditorInfo, componentData: ComponentDa
         propertyName,
         changed: (value: any) => {
             componentPropertyChanged.fire({ componentId: componentData.props.id, propertyValue: value, propertyName })
+        },
+        ref: (e: React.Component<EditorProps<any>, EditorState<any>>) => {
+            if (!e) return;
+
+            e.setState({ propertyValue: (componentData.props as any)[propertyName] });
         }
     }
 

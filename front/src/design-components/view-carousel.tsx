@@ -1,6 +1,6 @@
 import React from "react";
 import { AdView } from "../ad-views/ad-view";
-import { componentChildrenArray, componentSelected, ComponentRelateion } from "../common";
+import { componentChildrenArray, componentSelected, ComponentRelateion, EditorPageContext } from "../common";
 import { ViewCarouselProps } from "../view-carousel";
 import "./view-carousel.scss";
 
@@ -34,6 +34,26 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
         componentSelected.fire({ id: view.props.id, component: view });
     }
 
+    nextScreen() {
+        let activeIndex = this.state.activeIndex + 1;
+        if (activeIndex > this.children.length - 1)
+            activeIndex = 0;
+
+        this.activeItem(activeIndex);
+    }
+
+    previousScreen() {
+        let activeIndex = this.state.activeIndex - 1;
+        if (activeIndex < 0)
+            activeIndex = this.children.length - 1;
+
+        this.activeItem(activeIndex);
+    }
+
+    get screensCount() {
+        return this.children.length;
+    }
+
     componentDidMount(): void {
         let child = this.children[this.state.activeIndex];
         if (child) {
@@ -44,6 +64,7 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
     render(): React.ReactNode {
         let children = componentChildrenArray(this.props.children);
         let { activeIndex } = this.state;
+
         return <ComponentRelateion.Provider value={{ parent: this, children: this.children }}>
             <div className="ant-carousel">
                 <ul className="slick-dots slick-dots-bottom" style={{ display: "block", position: "unset" }}>
@@ -53,7 +74,16 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
                 </ul>
             </div>
             {children.map((c, i) => <div key={c.key}>{c}</div>)}
-        </ComponentRelateion.Provider>;
+            <EditorPageContext.Consumer>
+                {args => {
+                    if (args.setCarousel) {
+                        args.setCarousel(this);
+                    }
+                    return <></>
+                }}
+            </EditorPageContext.Consumer>
+
+        </ComponentRelateion.Provider>
 
     }
 }

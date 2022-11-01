@@ -6,10 +6,10 @@ export class NumberInputEditor extends React.Component<EditorProps<number>, Edit
     constructor(props: NumberInputEditor["props"]) {
         super(props);
 
-        this.state = { value: props.propertyValue };
+        this.state = { propertyValue: props.propertyValue };
     }
     render(): React.ReactNode {
-        let { value } = this.state;
+        let { propertyValue: value } = this.state;
         return <InputNumber value={value} style={{ width: "100%" }} />
     }
 }
@@ -19,11 +19,11 @@ export class InputEditor extends React.Component<EditorProps<string>, EditorStat
     constructor(props: InputEditor["props"]) {
         super(props);
 
-        this.state = { value: props.propertyValue };
+        this.state = { propertyValue: props.propertyValue };
     }
 
     render(): React.ReactNode {
-        let { value } = this.state;
+        let { propertyValue: value } = this.state;
         return <Input value={value} onChange={e => {
             this.props.changed(e.target.value);
         }} />

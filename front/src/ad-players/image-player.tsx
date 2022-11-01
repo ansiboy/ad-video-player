@@ -5,7 +5,7 @@ import "./image-player.scss";
 import { Empty } from "antd";
 
 export interface Props extends AdPlayerProps {
-    imagePaths: string[]
+    imagePaths?: string[]
 }
 
 export default class ImagePlayer extends AdPlayer<Props> {
@@ -28,7 +28,7 @@ export default class ImagePlayer extends AdPlayer<Props> {
     }
 
     render() {
-        let imagePaths = this.props.imagePaths;
+        let imagePaths = this.props.imagePaths || [];
         if (imagePaths.length == 0) {
             return <Empty description="暂无图片" />
         }
@@ -43,7 +43,7 @@ export default class ImagePlayer extends AdPlayer<Props> {
             this.carousel = new Carousel(this.carouselElement, { autoplay: true })
         }}>
             <ol className="carousel-indicators">
-                {this.props.imagePaths.map((o, i) =>
+                {imagePaths.map((o, i) =>
                     <li key={i}></li>
                 )}
             </ol>
