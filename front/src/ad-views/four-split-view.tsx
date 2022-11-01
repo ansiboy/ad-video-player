@@ -1,5 +1,5 @@
 import React from "react";
-import { componentChildrenArray } from "../common";
+import { componentChildrenArray, ComponentRelateion } from "../common";
 import { AdView } from "./ad-view";
 import "./four-split-view.scss";
 
@@ -25,5 +25,6 @@ export class FourSplitView extends AdView {
                 {children[3]}
             </div>
         </>
+
     }
 }

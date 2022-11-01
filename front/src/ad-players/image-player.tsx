@@ -2,8 +2,9 @@ import React from "react";
 import { AdPlayer, AdPlayerProps } from "./ad-player";
 import { Carousel } from "./image-player/carousel";
 import "./image-player.scss";
+import { Empty } from "antd";
 
-interface Props extends AdPlayerProps {
+export interface Props extends AdPlayerProps {
     imagePaths: string[]
 }
 
@@ -29,7 +30,7 @@ export default class ImagePlayer extends AdPlayer<Props> {
     render() {
         let imagePaths = this.props.imagePaths;
         if (imagePaths.length == 0) {
-            return <></>
+            return <Empty description="暂无图片" />
         }
         if (imagePaths.length == 1) {
             return <img className="player-image" src={imagePaths[0]} />

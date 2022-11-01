@@ -1,5 +1,5 @@
-import { InputNumber } from "antd";
-import React, {  } from "react";
+import { Input, InputNumber } from "antd";
+import React, { } from "react";
 import { EditorProps, EditorState } from "./property-editor";
 
 export class NumberInputEditor extends React.Component<EditorProps<number>, EditorState<number>> {
@@ -10,6 +10,23 @@ export class NumberInputEditor extends React.Component<EditorProps<number>, Edit
     }
     render(): React.ReactNode {
         let { value } = this.state;
-        return <InputNumber value={value} />
+        return <InputNumber value={value} style={{ width: "100%" }} />
     }
+}
+
+export class InputEditor extends React.Component<EditorProps<string>, EditorState<string>> {
+
+    constructor(props: InputEditor["props"]) {
+        super(props);
+
+        this.state = { value: props.value };
+    }
+
+    render(): React.ReactNode {
+        let { value } = this.state;
+        return <Input value={value} onChange={e => {
+            this.props.changed(e.target.value);
+        }} />
+    }
+
 }

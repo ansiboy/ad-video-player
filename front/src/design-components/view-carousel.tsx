@@ -1,6 +1,6 @@
-import { Carousel, Col, Row, Tabs } from "antd";
 import React from "react";
-import { componentChildrenArray } from "../common";
+import { AdView } from "../ad-views/ad-view";
+import { componentChildrenArray, componentSelected, ComponentRelateion } from "../common";
 import { ViewCarouselProps } from "../view-carousel";
 import "./view-carousel.scss";
 
@@ -18,6 +18,8 @@ interface State {
 
 export default class ViewCarouselDesign extends React.Component<ViewCarouselProps, State> {
 
+    private children: AdView[] = [];
+
     constructor(props: ViewCarouselDesign["props"]) {
         super(props);
 
@@ -25,21 +27,24 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
     }
 
     activeItem(index: number) {
-        this.props.data.views[this.state.activeIndex].setVisible(false);
-        this.props.data.views[index].setVisible(true);
+        this.children[this.state.activeIndex].setVisible(false);
+        let view = this.children[index];
+        view.setVisible(true);
         this.setState({ activeIndex: index });
+        componentSelected.fire({ id: view.props.id, component: view });
     }
 
     componentDidMount(): void {
-        setTimeout(() => {
-            this.props.data.views[this.state.activeIndex].setVisible(true);
-        }, 1000)
+        let child = this.children[this.state.activeIndex];
+        if (child) {
+            child.setVisible(true);
+        }
     }
 
     render(): React.ReactNode {
         let children = componentChildrenArray(this.props.children);
         let { activeIndex } = this.state;
-        return <>
+        return <ComponentRelateion.Provider value={{ parent: this, children: this.children }}>
             <div className="ant-carousel">
                 <ul className="slick-dots slick-dots-bottom" style={{ display: "block", position: "unset" }}>
                     {children.map((c, i) => <li key={i} className={activeIndex == i ? "slick-active" : ""}>
@@ -48,7 +53,7 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
                 </ul>
             </div>
             {children.map((c, i) => <div key={c.key}>{c}</div>)}
-        </>;
+        </ComponentRelateion.Provider>;
 
     }
 }

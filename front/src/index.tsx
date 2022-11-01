@@ -15,4 +15,3 @@ loadComponentData().then(data => {
     </BrowserRouter>);
 })
 
-// reportWebVitals();

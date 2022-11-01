@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Tabs, Carousel, PageHeader, Button, Menu, Dropdown, Modal, List, Empty } from "antd";
+import { Col, Row, PageHeader, Button, Menu, Dropdown, Modal, Empty } from "antd";
 import { DeleteOutlined, ArrowLeftOutlined, ArrowRightOutlined, LineOutlined, PlusOutlined } from "@ant-design/icons";
-import { ComponentData, loadComponentData, parseComponentData } from "../../component-parse";
+import { ComponentData, ComponentProps, loadComponentData, parseComponentData } from "../../component-parse";
+import { componentSelected } from "../../common";
+import "./edit.scss";
+import { componentPropertyChanged } from "../../type-names";
+import { PropertyEditorPanel } from "./edit/property-editor-panel";
 
 const contentStyle: React.CSSProperties = {
-    // height: '450px',
-    // color: '#fff',
     lineHeight: '160px',
     textAlign: 'center',
     background: '#364d79',
@@ -20,11 +22,33 @@ export default function EditPage() {
         { key: '1', label: "16:9" },
     ]} />
 
-    let [componentData, setComponentData] = useState(null as ComponentData | null);
+    let [pageData, setPageData] = useState(null as ComponentData | null);
+    let [selectedComponentData, setSelectedComponentData] = useState(null as ComponentData | null);
+
     useEffect(() => {
-        loadComponentData().then(c => {
-            setComponentData(c);
+        loadComponentData().then(pageData => {
+            setPageData(pageData);
+
+            componentSelected.add(args => {
+                let c = findComponentData(args.id, pageData as ComponentData);
+                if (c) {
+                    c = JSON.parse(JSON.stringify(c)) as ComponentData;
+                    setSelectedComponentData(c);
+                }
+            })
+
+            componentPropertyChanged.add(args => {
+                let c = findComponentData(args.componentId, pageData as ComponentData);
+                if (c) {
+                    c.props[args.propertyName as keyof ComponentProps] = args.propertyValue;
+                    pageData = JSON.parse(JSON.stringify(pageData));
+                    setPageData(pageData);
+                }
+            })
         })
+
+
+
     }, [])
 
     return <>
@@ -50,40 +74,12 @@ export default function EditPage() {
                     <Button key="add-screen" icon={<PlusOutlined />}>添加</Button>,
                     <Button key="delete-screen" icon={<DeleteOutlined />}>删除</Button>,
                 ]} />
-                {/* <Carousel style={{ marginLeft: 10, marginRight: 10 }}>
-                    <div>
-                        <Row style={contentStyle}>
-                            <Col span={8} style={{ backgroundColor: "red" }}></Col>
-                            <Col span={8} style={{ backgroundColor: "blue" }}></Col>
-                            <Col span={8} style={{ backgroundColor: "black" }}></Col>
-                        </Row>
-                    </div>
-                    <div>
-                        <h3 style={contentStyle}>2</h3>
-                    </div>
-                    <div>
-                        <h3 style={contentStyle}>3</h3>
-                    </div>
-                    <div>
-                        <h3 style={contentStyle}>4</h3>
-                    </div>
-                </Carousel> */}
                 <div style={{ paddingLeft: 20, paddingRight: 20 }}>
-                    {renderComponentData(componentData)}
+                    {renderComponentData(pageData)}
                 </div>
             </Col>
             <Col span={3} >
-                <List header={<div>属性编辑</div>}>
-
-                </List>
-                {/* <Tabs>
-                    <Tabs.TabPane tab="图片" key="item-1">
-                        内容 1
-                    </Tabs.TabPane>
-                    <Tabs.TabPane tab="视频" key="item-2">
-                        内容 2
-                    </Tabs.TabPane>
-                </Tabs> */}
+                <PropertyEditorPanel componentData={selectedComponentData} />
             </Col>
         </Row>
     </>
@@ -95,3 +91,21 @@ function renderComponentData(componentData: ComponentData | null) {
 
     return parseComponentData(componentData, true);
 }
+
+function findComponentData(componentId: string, pageData: ComponentData) {
+    let stack = [pageData];
+    let item = stack.pop();
+    while (item) {
+        if (item.props.id == componentId)
+            return item;
+
+        if (item.props.children)
+            stack.push(...item.props.children)
+
+        item = stack.pop();
+    }
+
+}
+
+
+

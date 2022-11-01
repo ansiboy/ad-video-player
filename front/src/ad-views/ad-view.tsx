@@ -1,5 +1,6 @@
 import React from "react";
 import { AdPlayer } from "../ad-players/ad-player";
+import { ComponentRelateion } from "../common";
 import { ViewCarouselData } from "../view-carousel";
 
 export abstract class AdView extends React.Component<AdViewProps, AdViewState> {
@@ -7,10 +8,11 @@ export abstract class AdView extends React.Component<AdViewProps, AdViewState> {
     abstract className: string;
     abstract renderChildren(): React.ReactNode;
 
+    protected children: AdPlayer<any>[] = [];
+
     constructor(props: AdView["props"]) {
         super(props);
 
-        this.props.carouselData.views.push(this);
         this.state = { visible: false };
     }
 
@@ -19,23 +21,32 @@ export abstract class AdView extends React.Component<AdViewProps, AdViewState> {
     }
 
     play() {
-        this.props.data.players.forEach(p => {
+        this.children.forEach(p => {
             p.play();
         })
     }
 
     pause() {
-        this.props.data.players.forEach(p => {
+        this.children.forEach(p => {
             p.pause();
         })
     }
 
     render(): React.ReactNode {
         let { visible } = this.state;
-        return <div className={this.className} style={{ display: visible ? "flex" : "none" }}>
-            {this.renderChildren()}
-        </div>
+        return <ComponentRelateion.Consumer>
+            {args => {
+                if (args != null && args.children.indexOf(this) < 0) {
+                    args.children.push(this);
+                }
 
+                return <ComponentRelateion.Provider value={{ parent: this, children: this.children }}>
+                    <div className={this.className} style={{ display: visible ? "flex" : "none" }}>
+                        {this.renderChildren()}
+                    </div>
+                </ComponentRelateion.Provider>
+            }}
+        </ComponentRelateion.Consumer>
     }
 }
 
@@ -44,9 +55,8 @@ export interface AdViewData {
 }
 
 export interface AdViewProps {
+    id: string,
     children: React.ReactNode,
-    carouselData: ViewCarouselData,
-    data: AdViewData,
     playSeconds: number,
 }
 

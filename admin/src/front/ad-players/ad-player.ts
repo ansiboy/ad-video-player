@@ -1,8 +1,6 @@
 import React from "react";
-import { AdViewData } from "../ad-views/ad-view";
 
 export interface AdPlayerProps {
-    viewData: AdViewData
 }
 
 /** 广告播放器 */
@@ -15,6 +13,5 @@ export abstract class AdPlayer<P extends AdPlayerProps, S = any> extends React.C
     constructor(props: P) {
         super(props);
 
-        props.viewData.players.push(this);
     }
 }

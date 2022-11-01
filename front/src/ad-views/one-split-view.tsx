@@ -1,4 +1,5 @@
-import { componentChildrenArray } from "../common";
+import React from "react";
+import { componentChildrenArray, ComponentRelateion } from "../common";
 import { AdView } from "./ad-view";
 
 import "./one-split-view.scss";
@@ -11,6 +12,7 @@ export class OneSplitView extends AdView {
     renderChildren() {
         let children = componentChildrenArray(this.props.children);
         return children[0];
+
     }
 
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { AdView, AdViewProps } from "./ad-views/ad-view";
-import { componentChildrenArray } from "./common";
+import { componentChildrenArray, ComponentRelateion } from "./common";
+import { ComponentProps } from "./component-parse";
 
 const second = 1000;
 
@@ -9,8 +10,9 @@ export interface ViewCarouselData {
 }
 
 export interface ViewCarouselProps {
+    id: string,
     children: React.ReactNode,
-    data: ViewCarouselData
+    // data: ViewCarouselData
 }
 
 export const ViewCarouselContext = React.createContext({ views: [] as AdView[] });
@@ -21,6 +23,7 @@ export default class ViewCarousel extends React.Component<ViewCarouselProps> {
 
     private currentIndex = 0;
     private playItemSeconds: number[];
+    private children: AdView[] = [];
 
     constructor(props: ViewCarousel["props"]) {
         super(props);
@@ -64,11 +67,13 @@ export default class ViewCarousel extends React.Component<ViewCarouselProps> {
     }
 
     getAdView(index: number): AdView {
-        let adView = this.props.data.views[index] as any as AdView;
+        let adView = this.children[index] as any as AdView;
         return adView;
     }
 
     render(): React.ReactNode {
-        return this.props.children;
+        return <ComponentRelateion.Provider value={{ parent: this, children: this.children }}>
+            {this.props.children}
+        </ComponentRelateion.Provider >
     }
 }

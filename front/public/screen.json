@@ -59,25 +59,25 @@
                         {
                             "type": "VideoPlayer",
                             "props": {
-                                "videoPath": "/medias/single/1.mp4"
+                                "videoPath": "/medias/square/1.mp4"
                             }
                         },
                         {
                             "type": "VideoPlayer",
                             "props": {
-                                "videoPath": "/medias/single/2.mp4"
+                                "videoPath": "/medias/square/2.mp4"
                             }
                         },
                         {
                             "type": "VideoPlayer",
                             "props": {
-                                "videoPath": "/medias/single/3.mp4"
+                                "videoPath": "/medias/square/3.mp4"
                             }
                         },
                         {
                             "type": "VideoPlayer",
                             "props": {
-                                "videoPath": "/medias/single/4.mp4"
+                                "videoPath": "/medias/square/4.mp4"
                             }
                         }
                     ]
