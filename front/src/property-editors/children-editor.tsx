@@ -12,7 +12,7 @@ export class ChildrenEditor extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.state = { value: props.value };
+        this.state = { value: props.propertyValue };
     }
 
     render(): React.ReactNode {

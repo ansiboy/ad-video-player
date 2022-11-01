@@ -6,7 +6,7 @@ export class NumberInputEditor extends React.Component<EditorProps<number>, Edit
     constructor(props: NumberInputEditor["props"]) {
         super(props);
 
-        this.state = { value: props.value };
+        this.state = { value: props.propertyValue };
     }
     render(): React.ReactNode {
         let { value } = this.state;
@@ -19,7 +19,7 @@ export class InputEditor extends React.Component<EditorProps<string>, EditorStat
     constructor(props: InputEditor["props"]) {
         super(props);
 
-        this.state = { value: props.value };
+        this.state = { value: props.propertyValue };
     }
 
     render(): React.ReactNode {
