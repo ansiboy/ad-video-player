@@ -11,7 +11,7 @@ import ImagePathsEditor from "./property-editors/image-paths-editor";
 export type PropertyEditorInfo = {
     propertyName: string,
     displayName: string,
-    editorClass: React.ComponentClass<any, any> | React.FunctionComponent<any>
+    editorClass: React.ComponentClass<any, any> | React.FunctionComponent<any>,
 }
 
 let PLAY_SECONDS: keyof AdViewProps = "playSeconds";
@@ -27,7 +27,7 @@ propertyEditors[typeNames.ThreeSplitView] = propertyEditors[typeNames.FourSplitV
 
 let IMAGE_PATHS: keyof ImagePlayerProps = "imagePaths";
 propertyEditors[typeNames.ImagePlayer] = [
-    { propertyName: IMAGE_PATHS, displayName: "图片路径", editorClass: ImagePathsEditor }//ImagePathsEditor
+    { propertyName: IMAGE_PATHS, displayName: "图片路径", editorClass: ImagePathsEditor }
 ]
 
 let VIDEO_PATH: keyof VideoPlayerProps = "videoPath";

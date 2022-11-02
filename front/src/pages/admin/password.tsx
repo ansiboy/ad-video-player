@@ -11,17 +11,17 @@ export default function PasswordPage() {
         style={{ width: 600, marginLeft: 10, marginTop: 20 }}
     >
         <Form.Item
-            label="Username"
+            label="用户名"
             name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            rules={[{ required: true, message: '请输入用户名' }]}
         >
             <Input />
         </Form.Item>
 
         <Form.Item
-            label="Password"
+            label="密码"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: '请输入密码' }]}
         >
             <Input.Password />
         </Form.Item>

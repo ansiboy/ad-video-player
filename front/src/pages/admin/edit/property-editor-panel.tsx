@@ -1,42 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import { Empty, Form } from "antd";
 import { ComponentData } from "../../../component-parse";
 import componentPropertyEditors, { PropertyEditorInfo } from "../../../component-property-editors";
 import { Collapse } from 'antd';
 import { EditorProps, EditorState } from "../../../property-editors/property-editor";
 import { componentPropertyChanged } from "../../../type-names";
+import { EditorPageContext } from "../../../common";
+import errors from "../../../errors";
 
 /** 属性编辑器面板 */
-export function PropertyEditorPanel(props: { componentData: ComponentData | null }) {
+export function PropertyEditorPanel() {
+    return <EditorPageContext.Consumer>
+        {args => {
+            return <Collapse defaultActiveKey={['1']}>
+                <Collapse.Panel header={"属性编辑"} key="1">
+                    {renderPropertyEditorsByComponentId(args.selectedComponentId, args.pageData)}
+                </Collapse.Panel>
+            </Collapse>
+        }}
+    </EditorPageContext.Consumer>
 
-    let componentData = props.componentData;
-    if (!componentData) {
-        return <Collapse defaultActiveKey={['1']}>
-            <Collapse.Panel header={"属性编辑"} key="1">
-                <Empty />
-            </Collapse.Panel>
-        </Collapse>
+}
+
+function renderPropertyEditorsByComponentId(componentId: string | null, pageData: ComponentData | null) {
+    // if (!componentId) throw errors.argumentNull("componentId");
+    // if (!pageData) throw errors.argumentNull("pageData");
+
+    let stack = [pageData];
+    let item = stack.pop();
+    let componentData: ComponentData | null = null;
+    if (componentId != null && pageData != null) {
+        while (item) {
+            if (componentId == item.props.id) {
+                componentData = item;
+                break;
+            }
+
+            if (item.props.children) {
+                stack.push(...item.props.children)
+            }
+            item = stack.pop();
+        }
+
+        if (componentData == null)
+            throw errors.componentDataNotExists(componentId);
     }
 
-    let propertyEditors = componentPropertyEditors[componentData.type] || [];
+    return renderPropertyEditors(componentData);
+}
 
-    return <Collapse defaultActiveKey={['1']}>
-        <Collapse.Panel header={"属性编辑"} key="1">
-            <Form layout="vertical">
-                {propertyEditors.map((e, i) =>
-                    <Form.Item key={e.propertyName} name={e.propertyName} label={e.displayName}>
-                        {createEditor(e, componentData as ComponentData)}
-                    </Form.Item>
-                )}
-            </Form>
-        </Collapse.Panel>
-    </Collapse>
+function renderPropertyEditors(componentData: ComponentData | null) {
+    if (!componentData)
+        return <Empty />
+
+    let propertyEditors = componentPropertyEditors[componentData.type] || [];
+    return <Form layout="vertical">
+        {propertyEditors.map((e, i) =>
+            <Form.Item key={e.propertyName} name={e.propertyName} label={e.displayName}>
+                {createEditor(e, componentData as ComponentData)}
+            </Form.Item>
+        )}
+    </Form>
 }
 
 function createEditor(editorInfo: PropertyEditorInfo, componentData: ComponentData) {
     let { editorClass, propertyName } = editorInfo;
+    let propertyValue = (componentData.props as any)[propertyName];
     let props: EditorProps<any> = {
-        propertyValue: (componentData.props as any)[propertyName],
+        propertyValue,
         propertyName,
         changed: (value: any) => {
             componentPropertyChanged.fire({ componentId: componentData.props.id, propertyValue: value, propertyName })

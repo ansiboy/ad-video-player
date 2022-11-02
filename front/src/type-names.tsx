@@ -17,14 +17,15 @@ export let designComponentTypes = {
     ImagePlayer: ImagePlayerDesign,
     VideoPlayer: VideoPlayerDesign,
 };
-type TypeName = keyof typeof runtimeComponentTypes;
+export type ComponentTypeName = keyof typeof runtimeComponentTypes;
 
-export const ONE_SPLIT_VIEW: TypeName = "OneSplitView";
-export const THREE_SPLIT_VIEW: TypeName = "ThreeSplitView";
-export const FOUR_SPLIT_VIEW: TypeName = "FourSplitView";
-export const IMAGE_PLAYER: TypeName = "ImagePlayer";
-export const VIDEO_PLAYER: TypeName = "VideoPlayer";
-export const EMPTY_PLAYER: TypeName = "EmptyPlayer"
+const ONE_SPLIT_VIEW: ComponentTypeName = "OneSplitView";
+const THREE_SPLIT_VIEW: ComponentTypeName = "ThreeSplitView";
+const FOUR_SPLIT_VIEW: ComponentTypeName = "FourSplitView";
+const IMAGE_PLAYER: ComponentTypeName = "ImagePlayer";
+const VIDEO_PLAYER: ComponentTypeName = "VideoPlayer";
+const EMPTY_PLAYER: ComponentTypeName = "EmptyPlayer"
+const VIEW_CAROUSEL: ComponentTypeName = "ViewCarousel";
 
 export let typeNames = {
     OneSplitView: ONE_SPLIT_VIEW,
@@ -32,7 +33,8 @@ export let typeNames = {
     FourSplitView: FOUR_SPLIT_VIEW,
     ImagePlayer: IMAGE_PLAYER,
     VideoPlayer: VIDEO_PLAYER,
-    EmptyPlayer: EMPTY_PLAYER
+    EmptyPlayer: EMPTY_PLAYER,
+    ViewCarousel: VIEW_CAROUSEL,
 }
 
 export let componentPropertyChanged = new Callback<{ componentId: string, propertyName: string, propertyValue: any }>();

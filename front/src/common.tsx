@@ -1,7 +1,5 @@
 import React, { ReactElement } from "react";
-import { Callback } from "maishu-toolkit";
-import type { AdPlayer } from "./ad-players/ad-player";
-import type ViewCarouselDesign from "./design-components/view-carousel";
+import { ComponentData } from "./component-parse";
 
 export function componentChildrenArray(children: React.ReactNode): ReactElement[] {
     if (children == null)
@@ -25,9 +23,20 @@ export let paths = {
     }
 }
 
-export let componentSelected = new Callback<{ id: string, component: AdPlayer<any> }>();
+// export let componentSelected = new Callback<{ id: string }>();
 
 export let ComponentRelateion = React.createContext<{ parent: React.Component, children: React.Component[] }>(null as any);
 
-type T = { setCarousel?: (carousel: ViewCarouselDesign) => void };
-export let EditorPageContext = React.createContext<T>(null as any);
+export type EditorPageContextValue = {
+    screenIndex: number, setScreenIndex: (value: number) => void,
+    selectedComponentId: string | null, setSelectedComponentId: (value: string) => void,
+    pageData: ComponentData | null,
+};
+export let EditorPageContext = React.createContext<EditorPageContextValue>(null as any);
+
+export let strings = {
+    okText: "确定",
+    cancelText: "取消"
+}
+
+export const DefaultPlaySeconds = 15;

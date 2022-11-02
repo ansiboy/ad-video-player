@@ -1,7 +1,6 @@
 import React from "react";
 import { AdPlayer } from "../ad-players/ad-player";
 import { ComponentRelateion } from "../common";
-import { ViewCarouselData } from "../view-carousel";
 
 export abstract class AdView extends React.Component<AdViewProps, AdViewState> {
 
@@ -13,11 +12,7 @@ export abstract class AdView extends React.Component<AdViewProps, AdViewState> {
     constructor(props: AdView["props"]) {
         super(props);
 
-        this.state = { visible: false };
-    }
-
-    setVisible(value: boolean) {
-        this.setState({ visible: value })
+        this.state = { visible: true };
     }
 
     play() {
@@ -56,7 +51,7 @@ export interface AdViewData {
 
 export interface AdViewProps {
     id: string,
-    children: React.ReactNode,
+    children?: React.ReactNode,
     playSeconds: number,
 }
 

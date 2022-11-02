@@ -1,5 +1,5 @@
 import React from "react";
-import { componentChildrenArray, ComponentRelateion } from "../common";
+import { componentChildrenArray } from "../common";
 import { AdView } from "./ad-view";
 import "./four-split-view.scss";
 

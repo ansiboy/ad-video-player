@@ -1,6 +1,7 @@
 
 import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
 import auto from './auto-run';
+import config from './config';
 
 let win: BrowserWindow;
 const createWindow = async () => {
@@ -43,8 +44,8 @@ const createWindow = async () => {
             }
         ]
     }]);
-    // win.setMenu(menu);
-    win.loadFile('build/index.html')
+
+    win.loadURL(`http://localhost:${config.webPort}/`)
 }
 
 app.whenReady().then(() => {

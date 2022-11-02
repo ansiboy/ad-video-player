@@ -1,44 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, PageHeader, Button, Menu, Dropdown, Modal, Empty } from "antd";
+import { Col, Row, PageHeader, Button, Menu, Dropdown, Empty } from "antd";
 import { DeleteOutlined, ArrowLeftOutlined, ArrowRightOutlined, LineOutlined, PlusOutlined } from "@ant-design/icons";
 import { ComponentData, ComponentProps, loadComponentData, parseComponentData } from "../../component-parse";
-import { componentSelected, EditorPageContext } from "../../common";
+import { DefaultPlaySeconds, EditorPageContext, EditorPageContextValue } from "../../common";
 import "./edit.scss";
-import { componentPropertyChanged } from "../../type-names";
+import { componentPropertyChanged, ComponentTypeName, typeNames } from "../../type-names";
 import { PropertyEditorPanel } from "./edit/property-editor-panel";
-import { Callback } from "maishu-toolkit";
-import ViewCarouselDesign from "../../design-components/view-carousel";
-
-const contentStyle: React.CSSProperties = {
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-};
+import { guid } from "maishu-toolkit";
+import ScreenDialog from "./edit/screen-dialog";
+import { showError } from "../../ui";
+import errors from "../../errors";
+import { AdViewProps } from "../../ad-views/ad-view";
+import { ViewCarouselProps } from "../../view-carousel";
 
 export default function EditPage() {
-
-    let carousel: ViewCarouselDesign;
 
     let menu = <Menu items={[
         { key: '1', label: "16:9" },
     ]} />
 
     let [pageData, setPageData] = useState(null as ComponentData | null);
-    let [selectedComponentData, setSelectedComponentData] = useState(null as ComponentData | null);
     let [screensCount, setScreensCount] = useState(0);
+    let [screenIndex, setScreenIndex] = useState(0);
+    let [selectedComponentId, setSelectedComponentId] = useState(null as string | null);
+    let contextValue: EditorPageContextValue = {
+        screenIndex: screenIndex,
+        setScreenIndex: (value) => {
+            setScreenIndex(value);
+            let screens = (pageData as ComponentData).props.children || [];
+            setSelectedComponentId(screens[value].props.id);
+        },
+        selectedComponentId: selectedComponentId,
+        setSelectedComponentId: (value) => {
+            setSelectedComponentId(value)
+        },
+        pageData: pageData
+    };
 
     useEffect(() => {
         loadComponentData().then(pageData => {
             setPageData(pageData);
             setScreensCount((pageData.props.children || []).length);
-
-            componentSelected.add(args => {
-                let c = findComponentData(args.id, pageData as ComponentData);
-                if (c) {
-                    c = JSON.parse(JSON.stringify(c)) as ComponentData;
-                    setSelectedComponentData(c);
-                }
-            })
 
             componentPropertyChanged.add(args => {
                 let c = findComponentData(args.componentId, pageData as ComponentData);
@@ -53,30 +55,80 @@ export default function EditPage() {
     }, [])
 
     function nextScreen() {
-        if (!carousel)
-            return;
+        screenIndex = screenIndex + 1;
+        if (screenIndex > screensCount - 1)
+            screenIndex = 0;
 
-        carousel.nextScreen();
+        setScreenIndex(screenIndex);
     }
 
     function previousScreen() {
-        if (!carousel)
-            return;
+        screenIndex = screenIndex - 1;
+        if (screenIndex < 0)
+            screenIndex = screensCount - 1;
 
-        carousel.previousScreen();
+        setScreenIndex(screenIndex);
     }
 
-    return <>
-        <Modal title="添加屏幕" okText="确定" cancelText="取消" >
-            <Row>
-                <Col>
-                </Col>
-                <Col>
-                </Col>
-                <Col>
-                </Col>
-            </Row>
-        </Modal>
+    function addScreen(screenType: ComponentTypeName) {
+        if (!pageData) throw new Error("Pagedata is null.");
+
+        let newChildData = () => {
+            let c: ComponentData = {
+                type: typeNames.ImagePlayer,
+                props: { id: guid() }
+            }
+            return c;
+        }
+
+        let screenChildren: ComponentData[] = [];
+        switch (screenType) {
+            case typeNames.OneSplitView:
+                screenChildren.push(newChildData())
+                break;
+            case typeNames.ThreeSplitView:
+                screenChildren.push(newChildData(), newChildData(), newChildData())
+                break;
+            case typeNames.FourSplitView:
+                screenChildren.push(newChildData(), newChildData(), newChildData(), newChildData())
+                break;
+            default:
+                showError(errors.unsupportedScreenType(screenType))
+                break;
+        }
+
+        let componentData: ComponentData = {
+            type: screenType,
+            props: {
+                id: guid(),
+                children: screenChildren
+            }
+        };
+
+        (componentData.props as AdViewProps).playSeconds = DefaultPlaySeconds;
+
+        screenIndex = screenIndex + 1;
+        let children = pageData.props.children = pageData.props.children || [];
+        children.splice(screenIndex, 0, componentData);
+
+        console.assert((pageData as ComponentData).type == typeNames.ViewCarousel);
+        ((pageData as ComponentData).props as ViewCarouselProps).activeIndex = screenIndex;
+
+        pageData = JSON.parse(JSON.stringify(pageData));
+        setPageData(pageData);
+        setScreenIndex(screenIndex);
+        setSelectedComponentId(componentData.props.id);
+    }
+
+    let screenDialog: ScreenDialog;
+    function showScreenDialog() {
+        screenDialog.show();
+    }
+
+    return <EditorPageContext.Provider value={contextValue}>
+        <ScreenDialog key={guid()}
+            ref={e => screenDialog = e || screenDialog}
+            onSelecte={(screenType) => addScreen(screenType)} />
         <Row>
             <Col span={21} style={{}}>
                 <PageHeader extra={[
@@ -86,35 +138,33 @@ export default function EditPage() {
                     <Button key="spliter" icon={<LineOutlined />}>分割线</Button>,
                     <Button key="previous-screen" icon={<ArrowLeftOutlined />}
                         disabled={screensCount <= 1}
-                        onClick={e => previousScreen()}>上一屏</Button>,
+                        onClick={() => previousScreen()}>上一屏</Button>,
                     <Button key="next-screen" icon={<ArrowRightOutlined />}
                         disabled={screensCount <= 1}
-                        onClick={e => nextScreen()}>下一屏</Button>,
-                    <Button key="add-screen" icon={<PlusOutlined />}>添加</Button>,
+                        onClick={() => nextScreen()}>下一屏</Button>,
+                    <Button key="add-screen" icon={<PlusOutlined />} onClick={() => {
+                        console.log("click")
+                        showScreenDialog();
+                    }}>添加</Button>,
                     <Button key="delete-screen" icon={<DeleteOutlined />}>删除</Button>,
                 ]} />
-                <EditorPageContext.Provider value={{
-                    setCarousel: (c: ViewCarouselDesign) => {
-                        carousel = c;
-                    }
-                }}>
-                    <div style={{ paddingLeft: 20, paddingRight: 20 }}>
-                        {renderComponentData(pageData)}
-                    </div>
-                </EditorPageContext.Provider>
+                <div style={{ paddingLeft: 20, paddingRight: 20 }}>
+                    {renderComponentData(pageData)}
+                </div>
             </Col>
             <Col span={3} >
-                <PropertyEditorPanel componentData={selectedComponentData} />
+                <PropertyEditorPanel />
             </Col>
         </Row>
-    </>
+    </EditorPageContext.Provider>
 }
 
 function renderComponentData(componentData: ComponentData | null) {
     if (!componentData)
         return <Empty description="数据正在加载中..." />
 
-    return parseComponentData(componentData, true);
+    let r = parseComponentData(componentData, true);
+    return r;
 }
 
 function findComponentData(componentId: string, pageData: ComponentData) {
