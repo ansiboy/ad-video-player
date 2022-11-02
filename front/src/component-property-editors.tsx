@@ -19,7 +19,7 @@ let CHILDREN: keyof AdViewProps = "children";
 let propertyEditors: { [typeName: string]: PropertyEditorInfo[] } = {};
 propertyEditors[typeNames.OneSplitView] = [
     { propertyName: PLAY_SECONDS, displayName: "播放时间", editorClass: NumberInputEditor },
-    { propertyName: CHILDREN, displayName: "分屏", editorClass: ChildrenEditor }
+    { propertyName: CHILDREN, displayName: "分屏设置", editorClass: ChildrenEditor }
 ]
 
 propertyEditors[typeNames.ThreeSplitView] = propertyEditors[typeNames.FourSplitView] = propertyEditors[typeNames.OneSplitView];

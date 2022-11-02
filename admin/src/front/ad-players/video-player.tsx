@@ -25,7 +25,7 @@ export default class VideoPlayer extends AdPlayer<Props> {
     }
     render() {
         if (!this.props.videoPath) {
-            return <Empty description="暂无播放视频" />
+            return <Empty description="暂无视频" />
         }
         return <video className="player-video" src={this.props.videoPath} loop ref={e => this.videoElement = e || this.videoElement}>
         </video>
