@@ -6,7 +6,8 @@ let config = {
     // imagesPath: "medias/images",
     // videosPhysicalPath: path.join(__dirname, "medias/videos"),
     // imagesPhysicalPath: path.join(__dirname, "medias/images")
-    medias: "medias"
+    medias: "medias",
+    apiRoot: "/api"
 }
 
 export default config;

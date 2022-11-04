@@ -1,11 +1,13 @@
+import config from "../config";
+
 export let servicePaths = {
-    upload: "/media/upload",
-    medias: "/media/list",
-    login: "/user/login",
-    logout: "/user/logout",
-    changePassword: "/user/change-password",
-    screenList: "/screen/list",
-    screenSave: "/screen/save"
+    upload: `${config.apiRoot}/media/upload`,
+    medias: `${config.apiRoot}/media/list`,
+    login: `${config.apiRoot}/user/login`,
+    logout: `${config.apiRoot}/user/logout`,
+    changePassword: `${config.apiRoot}/user/change-password`,
+    screenList: `${config.apiRoot}/screen/list`,
+    screenSave: `${config.apiRoot}/screen/save`
 }
 
 export let anonymousPaths = {

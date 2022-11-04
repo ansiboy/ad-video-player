@@ -9,7 +9,7 @@ import request from "../utils/http"
  * @returns {token:string}
  */
 export const login = async (values: { username: string, password: string }): Promise<{ token: string }> => {
-  return request('/user/login', {
+  return request('/api/user/login', {
     method: 'POST',
     body: values as any
   })
@@ -22,7 +22,7 @@ export const login = async (values: { username: string, password: string }): Pro
  * @returns {string[]}
  */
 export const getAllList = async (type?: "video" | "image"): Promise<string[]> => {
-  const res: string[] = await request('/media/list', {
+  const res: string[] = await request('/api/media/list', {
     method: 'GET'
   })
   let data: string[] = []
@@ -46,7 +46,7 @@ export const getAllList = async (type?: "video" | "image"): Promise<string[]> =>
 export const uploadFile = async (file: any): Promise<{ token: string }> => {
   let data = null;
   try {
-    const res = await fetch('/media/upload', {
+    const res = await fetch('/api/media/upload', {
       method: 'POST',
       body: file
     })

@@ -14,7 +14,7 @@ const http_1 = __importDefault(require("../utils/http"));
  * @returns {token:string}
  */
 const login = async (values) => {
-    return (0, http_1.default)('/user/login', {
+    return (0, http_1.default)('/api/user/login', {
         method: 'POST',
         body: values
     });
@@ -27,7 +27,7 @@ exports.login = login;
  * @returns {string[]}
  */
 const getAllList = async (type) => {
-    const res = await (0, http_1.default)('/media/list', {
+    const res = await (0, http_1.default)('/api/media/list', {
         method: 'GET'
     });
     let data = [];
@@ -48,7 +48,7 @@ exports.getAllList = getAllList;
 const uploadFile = async (file) => {
     let data = null;
     try {
-        const res = await fetch('/media/upload', {
+        const res = await fetch('/api/media/upload', {
             method: 'POST',
             body: file
         });
