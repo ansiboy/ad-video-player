@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseComponentData = exports.loadComponentData = void 0;
 const react_1 = __importDefault(require("react"));
 const type_names_1 = require("./type-names");
-const maishu_toolkit_1 = require("maishu-toolkit");
+const guid_1 = require("maishu-toolkit/out/guid");
 async function loadComponentData() {
     let r = await fetch("/screen.json");
     let d = await r.json();
@@ -27,7 +27,7 @@ function parseComponentData(componentData, isDesignTime) {
     if (!type)
         throw new Error(`Component type '${componentData.type}' is not supported.`);
     let props = componentData.props;
-    props.id = props.id || (0, maishu_toolkit_1.guid)();
+    props.id = props.id || (0, guid_1.guid)();
     props.key = props.id;
     let childDatas = componentData.props.children || [];
     let children = childDatas.map(c => parseComponentData(c, isDesignTime));
