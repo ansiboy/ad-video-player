@@ -8,13 +8,12 @@ import {
   UploadProps
 } from 'antd'
 import React, { FC, useState } from 'react'
-import { LoadingOutlined, UploadOutlined } from '@ant-design/icons'
-import { RcFile } from 'antd/lib/upload'
+import { UploadOutlined } from '@ant-design/icons'
 import { uploadFile } from '../../../services/user'
 
 interface Props {
   type?: 'video' | 'image'
-  onOk: (info: string) => void
+  onOk: (info: string, isExist?: boolean) => void
   onBefore: (name: string) => boolean
 }
 
@@ -39,7 +38,7 @@ const UploadImage: FC<Props> = props => {
           uploadFile(formData)
             .then(res => {
               message.success({ content: '上传成功！', key, duration: 2 })
-              props.onOk(file.name)
+              props.onOk(file.name, true)
               setLoading(false)
             })
             .catch(err => {
@@ -74,6 +73,7 @@ const UploadImage: FC<Props> = props => {
           accept={
             type === 'video' ? 'video/mp4' : 'image/jpg,image/jpeg,image/png'
           }
+          showUploadList={false}
         >
           <Button icon={<UploadOutlined />}>
             上传{type === 'video' ? '视频' : '图片'}

@@ -6,7 +6,9 @@ import { getAllList } from '../../../services/user'
 
 interface Props {
   visible: boolean
-  type?: 'video' | 'image'
+  type: 'video' | 'image'
+  onOk: () => void
+  onCancel: () => void
 }
 
 interface Item {
@@ -15,24 +17,38 @@ interface Item {
 }
 
 const ModelImage: FC<Props> = props => {
-  const { visible, type } = props
+  const { visible, type, onCancel, onOk } = props
 
   const [list, setList] = useState<Item[]>([])
 
   useEffect(() => {
-    getAllList('image').then(res => {
-      const data: Item[] = res.reduce((prev: Item[], curr: string): Item[] => {
-        let obj = {
-          value: '',
-          checked: false
-        }
-        obj.value = curr
-        prev.push(obj)
-        return prev
-      }, [])
-      setList(data)
-    })
+    getList()
   }, [])
+
+  const getList = async () => {
+    const getlocalStorageList = localStorage.getItem(`${type}List`)
+    if (getlocalStorageList) {
+      const arr = JSON.parse(getlocalStorageList)
+      setList(arr)
+    } else {
+      getAllList(type).then(res => {
+        const data: Item[] = res.reduce(
+          (prev: Item[], curr: string): Item[] => {
+            let obj = {
+              value: '',
+              checked: false
+            }
+            obj.value = curr
+            prev.push(obj)
+            return prev
+          },
+          []
+        )
+        localStorage.setItem(`${type}List`, JSON.stringify(data))
+        setList(data)
+      })
+    }
+  }
 
   return (
     <>
@@ -40,7 +56,7 @@ const ModelImage: FC<Props> = props => {
         open={visible}
         destroyOnClose
         title={`选择${type === 'video' ? '视频' : '图片'}`}
-        onCancel={() => {}}
+        onCancel={onCancel}
         width={800}
         bodyStyle={{
           height: 500,
@@ -49,16 +65,24 @@ const ModelImage: FC<Props> = props => {
         footer={
           <div className='modal-footer'>
             <UploadImage
-              type='image'
-              onOk={info => {
-                console.log(info)
+              type={type}
+              onOk={(info, isExist: boolean = false) => {
+                let arr: Item[] = JSON.parse(JSON.stringify(list))
+                if (!isExist) {
+                  let obj = {
+                    checked: false,
+                    value: info
+                  }
+                  arr.unshift(obj)
+                }
+                setList(arr)
               }}
               onBefore={name => {
-                return true
+                return list.map(item => item.value).includes(name)
               }}
             />
             <Space size={12}>
-              <Button>取消</Button>
+              <Button onClick={onCancel}>取消</Button>
               <Button type='primary'>确定</Button>
             </Space>
           </div>
@@ -77,7 +101,11 @@ const ModelImage: FC<Props> = props => {
                 setList(arr)
               }}
             >
-              <img src={`/medias/${item.value}`} alt='' />
+              {type === 'image' ? (
+                <img src={`/medias/${item.value}`} alt='' />
+              ) : (
+                <video src={`/medias/${item.value}`}></video>
+              )}
             </div>
           ))}
         </div>

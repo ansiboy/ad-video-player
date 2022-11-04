@@ -43,7 +43,7 @@ const UploadImage = props => {
                     (0, user_1.uploadFile)(formData)
                         .then(res => {
                         antd_1.message.success({ content: '上传成功！', key, duration: 2 });
-                        props.onOk(file.name);
+                        props.onOk(file.name, true);
                         setLoading(false);
                     })
                         .catch(err => {
@@ -71,7 +71,7 @@ const UploadImage = props => {
     };
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(antd_1.Spin, { spinning: loading, size: 'small' },
-            react_1.default.createElement(antd_1.Upload, { listType: 'picture', beforeUpload: onBeforeUpload, accept: type === 'video' ? 'video/mp4' : 'image/jpg,image/jpeg,image/png' },
+            react_1.default.createElement(antd_1.Upload, { listType: 'picture', beforeUpload: onBeforeUpload, accept: type === 'video' ? 'video/mp4' : 'image/jpg,image/jpeg,image/png', showUploadList: false },
                 react_1.default.createElement(antd_1.Button, { icon: react_1.default.createElement(icons_1.UploadOutlined, null) },
                     "\u4E0A\u4F20",
                     type === 'video' ? '视频' : '图片')))));
