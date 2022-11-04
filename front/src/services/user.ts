@@ -32,7 +32,7 @@ export const getAllList = async (type?: "video" | "image"): Promise<string[]> =>
       data = res.filter(item => item.endsWith("jpg") || item.endsWith("png") || item.endsWith("jpeg"))
       break;
     case "video":
-      data = res.filter(item => item.endsWith("video"))
+      data = res.filter(item => item.endsWith("mp4"))
       break
     default:
       data = []

@@ -21,7 +21,6 @@ class ImagePathsEditor extends react_1.default.Component {
             react_1.default.createElement(antd_1.Space, { direction: 'vertical', size: 10 },
                 imagePaths.map((o, i) => (react_1.default.createElement(antd_1.Input, { key: (0, maishu_toolkit_1.guid)(), value: o, onChange: e => {
                         imagePaths[i] = e.target.value;
-                        // setImagePaths(imagePaths);
                         this.setState({ propertyValue: imagePaths });
                         this.props.changed(imagePaths);
                     } }))),
@@ -32,7 +31,9 @@ class ImagePathsEditor extends react_1.default.Component {
                     } },
                     react_1.default.createElement(icons_1.PlusOutlined, null),
                     " \u9009\u62E9\u56FE\u7247/\u89C6\u9891")),
-            react_1.default.createElement(modelImage_1.default, { visible: this.state.visible, type: 'image' })));
+            this.state.visible ? (react_1.default.createElement(modelImage_1.default, { visible: this.state.visible, type: 'video', onOk: () => {
+                    this.setState({ visible: false });
+                }, onCancel: () => this.setState({ visible: false }) })) : null));
     }
 }
 exports.default = ImagePathsEditor;

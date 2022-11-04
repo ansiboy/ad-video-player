@@ -29,7 +29,7 @@ export default class ImagePathsEditor extends React.Component<Props, State> {
               value={o}
               onChange={e => {
                 imagePaths[i] = e.target.value
-                // setImagePaths(imagePaths);
+
                 this.setState({ propertyValue: imagePaths })
                 this.props.changed(imagePaths)
               }}
@@ -57,7 +57,16 @@ export default class ImagePathsEditor extends React.Component<Props, State> {
             }} /> */}
         </Space>
 
-        <ModelImage visible={this.state.visible} type='image' />
+        {this.state.visible ? (
+          <ModelImage
+            visible={this.state.visible}
+            type='video'
+            onOk={() => {
+              this.setState({ visible: false })
+            }}
+            onCancel={() => this.setState({ visible: false })}
+          />
+        ) : null}
       </>
     )
   }
