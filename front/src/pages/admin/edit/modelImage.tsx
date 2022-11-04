@@ -81,7 +81,7 @@ const ModelImage: FC<Props> = props => {
                 return list.map(item => item.value).includes(name)
               }}
             />
-            <Space size={12}>
+            <Space size={12} style={{ marginLeft: 'auto' }}>
               <Button onClick={onCancel}>取消</Button>
               <Button type='primary'>确定</Button>
             </Space>

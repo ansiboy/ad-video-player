@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -77,7 +73,7 @@ const ModelImage = props => {
                     }, onBefore: name => {
                         return list.map(item => item.value).includes(name);
                     } }),
-                react_1.default.createElement(antd_1.Space, { size: 12 },
+                react_1.default.createElement(antd_1.Space, { size: 12, style: { marginLeft: 'auto' } },
                     react_1.default.createElement(antd_1.Button, { onClick: onCancel }, "\u53D6\u6D88"),
                     react_1.default.createElement(antd_1.Button, { type: 'primary' }, "\u786E\u5B9A"))) },
             react_1.default.createElement("div", { className: 'model-items' }, list.map(item => (react_1.default.createElement("div", { key: item.value, className: item.checked ? 'model-item active' : 'model-item', onClick: () => {
