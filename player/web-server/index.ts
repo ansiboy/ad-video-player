@@ -15,6 +15,7 @@ let server = startServer({
   urlRewrite: (rawUrl: string) => {
     let r = url.parse(rawUrl);
     let ext = path.extname(r.pathname);
+    rawUrl = decodeURI(rawUrl);
     if (ext || rawUrl.startsWith(config.apiRoot))
       return rawUrl;
 
