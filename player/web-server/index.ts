@@ -4,10 +4,11 @@ import * as path from "path";
 let dir = new VirtualDirectory(__dirname);
 console.log(__dirname);
 dir.setPath("/static", path.join(__dirname, "../build"));
+dir.setPath("/static/medias", path.join(__dirname, "../medias"));
 
 let server = startServer({
-    port: config.webPort,
-    websiteDirectory: dir,
+  port: config.webPort,
+  websiteDirectory: dir,
 }, "mvc");
 
 let contentTypes = server.requestProcessors.staticProcessor.contentTypes;

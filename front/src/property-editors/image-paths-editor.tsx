@@ -1,24 +1,52 @@
-import { EditorProps, EditorState } from "./property-editor";
-import { Input, Space } from "antd";
-import React from "react";
-import { guid } from "maishu-toolkit";
+import { EditorProps, EditorState } from './property-editor'
+import { Button, Input, Space } from 'antd'
+import React from 'react'
+import { guid } from 'maishu-toolkit'
+import { PlusOutlined } from '@ant-design/icons'
+import ModelImage from '../pages/admin/edit/modelImage'
 
 type Props = EditorProps<string[]>
-type State = EditorState<string[]>
+type State = EditorState<string[]> & {
+  visible: boolean
+}
 export default class ImagePathsEditor extends React.Component<Props, State> {
-    render() {
-        let imagePaths = this.props.propertyValue || [];
-        return <Space direction="vertical" size={10}>
-            {imagePaths.map((o, i) =>
-                <Input key={guid()} value={o} onChange={e => {
-                    imagePaths[i] = e.target.value;
-                    // setImagePaths(imagePaths);
-                    this.setState({ propertyValue: imagePaths });
-                    this.props.changed(imagePaths);
+  constructor (props: Props) {
+    super(props)
 
-                }} />
-            )}
-            <Input key={guid()} value="" onChange={e => {
+    this.state = {
+      visible: false
+    }
+  }
+
+  render () {
+    let imagePaths = this.props.propertyValue || []
+    return (
+      <>
+        <Space direction='vertical' size={10}>
+          {imagePaths.map((o, i) => (
+            <Input
+              key={guid()}
+              value={o}
+              onChange={e => {
+                imagePaths[i] = e.target.value
+                // setImagePaths(imagePaths);
+                this.setState({ propertyValue: imagePaths })
+                this.props.changed(imagePaths)
+              }}
+            />
+          ))}
+
+          <Button
+            type='primary'
+            onClick={() => {
+              this.setState({
+                visible: true
+              })
+            }}
+          >
+            <PlusOutlined /> 选择图片/视频
+          </Button>
+          {/* <Input key={guid()} value="" onChange={e => {
                 if (!e.target.value)
                     return;
 
@@ -26,9 +54,11 @@ export default class ImagePathsEditor extends React.Component<Props, State> {
                 this.setState({ propertyValue: imagePaths });
                 this.props.changed(imagePaths);
 
-            }} />
+            }} /> */}
         </Space>
-    }
 
+        <ModelImage visible={this.state.visible} type='image' />
+      </>
+    )
+  }
 }
-
