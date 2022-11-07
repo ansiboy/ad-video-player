@@ -1,4 +1,5 @@
 import { message } from "antd"
+import { supportMediaTypes } from "../common"
 import request from "../utils/http"
 
 /**
@@ -29,10 +30,20 @@ export const getAllList = async (type?: "video" | "image"): Promise<string[]> =>
 
   switch (type) {
     case "image":
-      data = res.filter(item => item.endsWith("jpg") || item.endsWith("png") || item.endsWith("jpeg"))
+      data = res.filter(item => {
+        let arr = item.split(".");
+        let fileType = arr[arr.length - 1];
+        let r = supportMediaTypes.image.indexOf(fileType) >= 0;
+        return r;
+      });
       break;
     case "video":
-      data = res.filter(item => item.endsWith("mp4"))
+      data = res.filter(item => {
+        let arr = item.split(".");
+        let fileType = arr[arr.length - 1];
+        let r = supportMediaTypes.video.indexOf(fileType) >= 0;
+        return r;
+      });
       break
     default:
       data = []
@@ -40,8 +51,6 @@ export const getAllList = async (type?: "video" | "image"): Promise<string[]> =>
   }
   return data
 }
-
-
 
 export const uploadFile = async (file: any): Promise<{ token: string }> => {
   let data = null;

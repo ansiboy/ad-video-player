@@ -10,6 +10,7 @@ import {
 import React, { FC, useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
 import { uploadFile } from '../../../services/user'
+import { httpContentTypes } from '../../../common'
 
 interface Props {
   type?: 'video' | 'image'
@@ -71,7 +72,7 @@ const UploadImage: FC<Props> = props => {
           listType='picture'
           beforeUpload={onBeforeUpload}
           accept={
-            type === 'video' ? 'video/mp4' : 'image/jpg,image/jpeg,image/png'
+            type === 'video' ? httpContentTypes.video.join(",") : httpContentTypes.image.join(",")
           }
           showUploadList={false}
         >

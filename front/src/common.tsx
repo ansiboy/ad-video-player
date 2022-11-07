@@ -40,3 +40,13 @@ export let strings = {
 }
 
 export const DefaultPlaySeconds = 15;
+
+export const supportMediaTypes = {
+    video: ["mp4"],
+    image: ["jpg", "png", "jpge"]
+}
+
+export const httpContentTypes = {
+    video: supportMediaTypes.video.map(o => `video/${o}`),
+    image: supportMediaTypes.image.map(o => `image/${o}`)
+}
