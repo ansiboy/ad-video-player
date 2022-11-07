@@ -1,16 +1,12 @@
-import userData from "./web-server/user-data.json";
+import userData from "./web-server/user-data";
 import shelljs from "shelljs";
 import { ChildProcess } from "child_process";
 import config from "./config";
 import * as path from "path";
 import fs from "fs";
 import errors from "./web-server/controllers/errors";
-import UserData from "./web-server/user-data";
 
-// let mgrokWinPath
-
-
-class RemoteControl {
+export default class RemoteControl {
     private static child_process: ChildProcess;
 
     public static start() {
@@ -25,7 +21,7 @@ class RemoteControl {
         if (!fs.existsSync(mgrokWinPath))
             throw errors.pathNotExists(mgrokWinPath);
 
-        if (userData.remoteControl) {
+        if (userData.info.remoteControl) {
             this.child_process = shelljs.exec("mgrok.exe start-all", { cwd: mgrokWinPath, async: true })
         }
     }
@@ -39,7 +35,7 @@ class RemoteControl {
     }
 
     public static isEnable() {
-        return userData.remoteControl;
+        return userData.info.remoteControl;
     }
 
     public static enable(value: boolean) {
@@ -52,5 +48,5 @@ class RemoteControl {
     }
 }
 
-if (userData.remoteControl)
+if (userData.info.remoteControl)
     RemoteControl.start();

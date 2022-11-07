@@ -8,6 +8,7 @@ import UserData from "../user-data";
 import { files } from "../decorators";
 import { FormPart } from "../decorators/form-parse";
 import * as path from "path";
+import RemoteControl from "../../remote-control";
 
 @controller()
 export default class HomeController {
@@ -96,8 +97,7 @@ export default class HomeController {
     if (d.value == null)
       throw errors.routeDataFieldNull("value");
 
-    UserData.info.remoteControl = d.value;
-    UserData.save();
+    RemoteControl.enable(d.value);
   }
 
   private getPageDataPath(): string {

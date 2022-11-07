@@ -1,4 +1,4 @@
-import userData from "../user-data.json";
+import userData from "./user-data.json";
 import * as fs from "fs";
 
 export default class UserData {

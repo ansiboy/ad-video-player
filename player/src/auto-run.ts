@@ -9,7 +9,7 @@ let electronPath = path.join(
 )
 let vbs = `Set ws = CreateObject("Wscript.Shell")
       ws.run "cmd /c ${electronPath} ${app.getAppPath()}",0`
-let autoRunPath = path.join(__dirname, 'auto-run.vbs')
+let autoRunPath = path.join(__dirname, '../auto-run.vbs')
 fs.writeFileSync(autoRunPath, vbs)
 let auto = new AutoLaunch({
     name: 'Minecraft',
