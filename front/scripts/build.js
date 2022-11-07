@@ -5,7 +5,7 @@
 process.env.BABEL_ENV = 'production';
 //========================================
 /** 说明：设为生成模式, 生成的 js 报错 */
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 //========================================
 
 // Makes the script crash on unhandled rejections instead of silently
