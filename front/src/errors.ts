@@ -15,6 +15,13 @@ class MyErrors extends Errors {
         error.name = name;
         return error;
     }
+    pageDataNull() {
+        let msg = `Page data is null.`;
+        let error = new Error(msg);
+        let name: keyof MyErrors = "pageDataNull";
+        error.name = name;
+        return error;
+    }
 }
 
 let errors = new MyErrors();

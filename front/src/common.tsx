@@ -36,7 +36,18 @@ export let EditorPageContext = React.createContext<EditorPageContextValue>(null 
 
 export let strings = {
     okText: "确定",
-    cancelText: "取消"
+    cancelText: "取消",
+    saveSuccess: "保存成功"
 }
 
 export const DefaultPlaySeconds = 15;
+
+export const supportMediaTypes = {
+    video: ["mp4"],
+    image: ["jpg", "png", "jpge"]
+}
+
+export const httpContentTypes = {
+    video: supportMediaTypes.video.map(o => `video/${o}`),
+    image: supportMediaTypes.image.map(o => `image/${o}`)
+}
