@@ -37,4 +37,4 @@ export let typeNames = {
     ViewCarousel: VIEW_CAROUSEL,
 }
 
-export let componentPropertyChanged = new Callback<{ componentId: string, propertyName: string, propertyValue: any }>();
+// export let componentPropertyChanged = new Callback<{ componentId: string, propertyName: string, propertyValue: any }>();
