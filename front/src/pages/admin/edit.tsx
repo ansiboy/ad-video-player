@@ -4,7 +4,7 @@ import { DeleteOutlined, ArrowLeftOutlined, ArrowRightOutlined, LineOutlined, Pl
 import { ComponentData, ComponentProps, loadComponentData, parseComponentData } from "../../component-parse";
 import { DefaultPlaySeconds, EditorPageContext, EditorPageContextValue, strings } from "../../common";
 import "./edit.scss";
-import { componentPropertyChanged, ComponentTypeName, typeNames } from "../../type-names";
+import { ComponentTypeName, typeNames } from "../../type-names";
 import { PropertyEditorPanel } from "./edit/property-editor-panel";
 import { guid } from "maishu-toolkit";
 import ScreenDialog from "./edit/screen-dialog";
@@ -35,9 +35,15 @@ export default function EditPage() {
         },
         selectedComponentId: selectedComponentId,
         setSelectedComponentId: (value) => {
-            setSelectedComponentId(value)
+            setSelectedComponentId(value);
         },
-        pageData: pageData
+        setPageData(pageData: ComponentData) {
+            pageData = JSON.parse(JSON.stringify(pageData));
+            setPageData(pageData);
+        },
+        getPageData() {
+            return pageData;
+        }
     };
 
     useEffect(() => {
@@ -45,14 +51,14 @@ export default function EditPage() {
             setPageData(pageData);
             setScreensCount((pageData.props.children || []).length);
 
-            componentPropertyChanged.add(args => {
-                let c = findComponentData(args.componentId, pageData as ComponentData);
-                if (c) {
-                    c.props[args.propertyName as keyof ComponentProps] = args.propertyValue;
-                    pageData = JSON.parse(JSON.stringify(pageData));
-                    setPageData(pageData);
-                }
-            })
+            // componentPropertyChanged.add(args => {
+            //     let c = findComponentData(args.componentId, pageData as ComponentData);
+            //     if (c) {
+            //         c.props[args.propertyName as keyof ComponentProps] = args.propertyValue;
+            //         pageData = JSON.parse(JSON.stringify(pageData));
+            //         setPageData(pageData);
+            //     }
+            // })
         })
 
     }, [])
@@ -213,20 +219,7 @@ function renderComponentData(componentData: ComponentData | null) {
     return r;
 }
 
-function findComponentData(componentId: string, pageData: ComponentData) {
-    let stack = [pageData];
-    let item = stack.pop();
-    while (item) {
-        if (item.props.id == componentId)
-            return item;
 
-        if (item.props.children)
-            stack.push(...item.props.children)
-
-        item = stack.pop();
-    }
-
-}
 
 
 

@@ -30,7 +30,8 @@ export let ComponentRelateion = React.createContext<{ parent: React.Component, c
 export type EditorPageContextValue = {
     screenIndex: number, setScreenIndex: (value: number) => void,
     selectedComponentId: string | null, setSelectedComponentId: (value: string) => void,
-    pageData: ComponentData | null,
+    getPageData: () => ComponentData | null,
+    setPageData: (pageData: ComponentData) => void,
 };
 export let EditorPageContext = React.createContext<EditorPageContextValue>(null as any);
 
@@ -58,4 +59,19 @@ export let headerNames = {
 
 export let headerContentTypes = {
     json: "application/json"
+}
+
+export function findComponentData(componentId: string, pageData: ComponentData) {
+    let stack = [pageData];
+    let item = stack.pop();
+    while (item) {
+        if (item.props.id == componentId)
+            return item;
+
+        if (item.props.children)
+            stack.push(...item.props.children)
+
+        item = stack.pop();
+    }
+
 }

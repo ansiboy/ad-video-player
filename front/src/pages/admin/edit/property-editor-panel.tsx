@@ -4,8 +4,8 @@ import { ComponentData } from "../../../component-parse";
 import componentPropertyEditors, { PropertyEditorInfo } from "../../../component-property-editors";
 import { Collapse } from 'antd';
 import { EditorProps, EditorState } from "../../../property-editors/property-editor";
-import { componentPropertyChanged } from "../../../type-names";
-import { EditorPageContext } from "../../../common";
+import { } from "../../../type-names";
+import { EditorPageContext, findComponentData } from "../../../common";
 import errors from "../../../errors";
 
 /** 属性编辑器面板 */
@@ -14,7 +14,7 @@ export function PropertyEditorPanel() {
         {args => {
             return <Collapse defaultActiveKey={['1']}>
                 <Collapse.Panel header={"属性编辑"} key="1">
-                    {renderPropertyEditorsByComponentId(args.selectedComponentId, args.pageData)}
+                    {renderPropertyEditorsByComponentId(args.selectedComponentId, args.getPageData())}
                 </Collapse.Panel>
             </Collapse>
         }}
@@ -66,19 +66,32 @@ function renderPropertyEditors(componentData: ComponentData | null) {
 function createEditor(editorInfo: PropertyEditorInfo, componentData: ComponentData) {
     let { editorClass, propertyName } = editorInfo;
     let propertyValue = (componentData.props as any)[propertyName];
-    let props: EditorProps<any> = {
-        propertyValue,
-        propertyName,
-        changed: (value: any) => {
-            componentPropertyChanged.fire({ componentId: componentData.props.id, propertyValue: value, propertyName })
-        },
-        ref: (e: React.Component<EditorProps<any>, EditorState<any>>) => {
-            if (!e) return;
 
-            e.setState({ propertyValue: (componentData.props as any)[propertyName] });
-        }
-    }
+    return <EditorPageContext.Consumer>
+        {args => {
+            let props: EditorProps<any> = {
+                propertyValue,
+                propertyName,
+                changed: (value: any) => {
+                    // componentPropertyChanged.fire({ componentId: componentData.props.id, propertyValue: value, propertyName })
+                    let pageData = args.getPageData() as ComponentData;
+                    let c = findComponentData(componentData.props.id, pageData);
+                    if (c == null)
+                        throw errors.componentDataNotExists(componentData.props.id);
 
-    return React.createElement(editorClass, props)
+                    (c.props as any)[propertyName] = value;
+                    args.setSelectedComponentId(componentData.props.id);
+                    args.setPageData(pageData);
+                },
+                ref: (e: React.Component<EditorProps<any>, EditorState<any>>) => {
+                    if (!e) return;
+
+                    e.setState({ propertyValue: (componentData.props as any)[propertyName] });
+                }
+            }
+
+            return React.createElement(editorClass, props);
+        }}
+    </EditorPageContext.Consumer>
 }
 

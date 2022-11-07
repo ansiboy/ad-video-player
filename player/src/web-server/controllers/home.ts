@@ -64,8 +64,6 @@ export default class HomeController {
       throw errors.fileTypeNotSupported(ext);
     }
 
-    projectRootDirectory.directories
-    debugger;
     let filePath = path.join(config.mediasPhysicalPath, file.filename);
     fs.writeFileSync(filePath, file.content);
     return {
