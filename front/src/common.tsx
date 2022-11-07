@@ -51,3 +51,11 @@ export const httpContentTypes = {
     video: supportMediaTypes.video.map(o => `video/${o}`),
     image: supportMediaTypes.image.map(o => `image/${o}`)
 }
+
+export let headerNames = {
+    contentType: "content-type"
+}
+
+export let headerContentTypes = {
+    json: "application/json"
+}

@@ -14,10 +14,10 @@ import RemoteControl from "../../remote-control";
 export default class HomeController {
   @action(servicePaths.medias)
   medias() {
-    if (!fs.existsSync(config.medias))
-      throw errors.pathNotExists(config.medias);
+    if (!fs.existsSync(config.mediasPhysicalPath))
+      throw errors.pathNotExists(config.mediasPhysicalPath);
 
-    let files = fs.readdirSync(config.medias);
+    let files = fs.readdirSync(config.mediasPhysicalPath);
     return files;
   }
 
@@ -64,7 +64,9 @@ export default class HomeController {
       throw errors.fileTypeNotSupported(ext);
     }
 
-    let filePath = path.join(__dirname, "../../medias", file.filename);
+    projectRootDirectory.directories
+    debugger;
+    let filePath = path.join(config.mediasPhysicalPath, file.filename);
     fs.writeFileSync(filePath, file.content);
     return {
       status: 200

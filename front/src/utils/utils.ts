@@ -4,4 +4,9 @@
  * @param {any} imagePath:string
  * @returns {any}
  */
-export const imagePath = (imagePath: string): string => `/medias/${imagePath}`
+export const imagePath = (imagePath: string): string => {
+    if (imagePath.startsWith("/medias/"))
+        return imagePath;
+
+    return `/medias/${imagePath}`
+}

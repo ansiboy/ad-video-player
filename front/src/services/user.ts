@@ -53,18 +53,27 @@ export const getAllList = async (type?: "video" | "image"): Promise<string[]> =>
   return data
 }
 
-export const uploadFile = async (file: any): Promise<{ token: string }> => {
-  let data = null;
-  try {
-    const res = await fetch('/api/media/upload', {
-      method: 'POST',
-      body: file
-    })
-    data = await res.json()
-  } catch (err: any) {
-    message.error(err.massge)
-  }
-  return data
+export const uploadFile = async (file: any) => {
+  return new Promise<any>(async (resolve, reject) => {
+    try {
+      let data = null;
+      const res = await fetch('/api/media/upload', {
+        method: 'POST',
+        body: file
+      })
+      data = await res.json();
+      if (res.status !== 200) {
+        message.error(data.message)
+        return
+      }
+
+      resolve(data);
+    } catch (err: any) {
+      message.error(err.massge)
+      reject(err);
+    }
+  })
+
 }
 
 /** 

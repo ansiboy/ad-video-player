@@ -1,4 +1,5 @@
 import { message } from "antd";
+import { headerContentTypes, headerNames } from "../common";
 import { baseUrl } from "./config";
 
 type FetchApi = RequestInit & { parms?: { [key: string]: string }, headers?: any }
@@ -15,13 +16,20 @@ const queryString = (params: { [key: string]: string }) => '?' + Object
 const request = async <T>(url: string, config: FetchApi): Promise<T> => {
   url = baseUrl + url;
   if (config.method === "GET" && config.parms) url = url + queryString(config.parms)
-  if (config.method === "POST" && config.body) config.body = JSON.stringify(config.body)
 
   config.headers = config.headers || {};
 
   if (localStorage.getItem("token")) config.headers["token"] = localStorage.getItem("token") as string
 
-  config.headers["content-type"] = "application/json"
+  if (!config.headers[headerNames.contentType])
+    config.headers[headerNames.contentType] = headerContentTypes.json;
+
+  if (config.method === "POST")
+    debugger;
+
+  if (config.method === "POST" && config.body && config.headers[headerNames.contentType] == headerContentTypes.json)
+    config.body = JSON.stringify(config.body)
+
 
   return new Promise((resolve, reject) =>
     fetch(url, config).then(async (res: any) => {

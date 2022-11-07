@@ -14,7 +14,7 @@ interface Props {
 
 const SortImageEditor: FC<Props> = props => {
   const { data } = props
-
+  
   return (
     <ul className='sorts'>
       <ReactSortable
