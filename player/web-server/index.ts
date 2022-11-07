@@ -2,16 +2,16 @@ import { startServer, VirtualDirectory } from "maishu-node-mvc";
 import config from "../config";
 import * as path from "path";
 import * as url from "url";
+import { projectRootDirectory } from "./common";
 
-let dir = new VirtualDirectory(__dirname);
+// let dir = new VirtualDirectory(__dirname);
 console.log(__dirname);
 
-dir.setPath("/static/medias", path.join(__dirname, "../medias"));
-dir.setPath("/static", path.join(__dirname, "../build"));
+
 
 let server = startServer({
   port: config.webPort,
-  websiteDirectory: dir,
+  websiteDirectory: projectRootDirectory,
   urlRewrite: (rawUrl: string) => {
     let r = url.parse(rawUrl);
     let ext = path.extname(r.pathname);

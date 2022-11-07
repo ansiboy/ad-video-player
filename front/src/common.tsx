@@ -36,7 +36,8 @@ export let EditorPageContext = React.createContext<EditorPageContextValue>(null 
 
 export let strings = {
     okText: "确定",
-    cancelText: "取消"
+    cancelText: "取消",
+    saveSuccess: "保存成功"
 }
 
 export const DefaultPlaySeconds = 15;

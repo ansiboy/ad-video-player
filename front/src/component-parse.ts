@@ -1,6 +1,7 @@
 import React from "react";
 import { designComponentTypes, runtimeComponentTypes } from "./type-names";
 import { guid } from "maishu-toolkit/out/guid";
+import * as service from "./services/user";
 
 export interface ComponentProps {
     id: string
@@ -15,9 +16,7 @@ export interface ComponentData {
 }
 
 export async function loadComponentData() {
-    let r = await fetch("/screen.json");
-    let d: ComponentData = await r.json();
-
+    let d = service.getPageData();
     return d;
 }
 

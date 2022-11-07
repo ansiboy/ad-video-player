@@ -1,5 +1,5 @@
 import { controller, action, routeData } from "maishu-node-mvc";
-import { imageExtNames, servicePaths, videoExtNames } from "../common";
+import { imageExtNames, pageDataFileName, projectRootDirectory, servicePaths, videoExtNames } from "../common";
 import * as fs from "fs";
 import config from "../../config";
 import errors from "./errors";
@@ -64,6 +64,39 @@ export default class HomeController {
   @action(servicePaths.screenList)
   async screenList() {
 
+  }
+
+  @action(servicePaths.screenSave)
+  async saveScreen() {
+
+  }
+
+  @action(servicePaths.getPageData)
+  async getPageData() {
+    let pageDataPath = this.getPageDataPath();
+    let pageDataText = fs.readFileSync(pageDataPath).toString();
+    let pageData = JSON.parse(pageDataText);
+    return pageData;
+  }
+
+  @action(servicePaths.savePageData)
+  async savePageData(@routeData d: { pageData: any }) {
+    if (!d.pageData) throw errors.routeDataFieldNull("pageData");
+
+    let pageDataPath = this.getPageDataPath();
+    fs.writeFileSync(pageDataPath, JSON.stringify(d.pageData));
+  }
+
+  private getPageDataPath(): string {
+    let staticDirectory = projectRootDirectory.findDirectory("static");
+    if (!staticDirectory)
+      throw errors.staticRootDirectoryNotExists();
+
+    let pageDataPath = staticDirectory.findFile(pageDataFileName);
+    if (!pageDataPath)
+      throw errors.staticDirectoryNotContainsFile(pageDataFileName);
+
+    return pageDataPath;
   }
 
 }

@@ -1,5 +1,6 @@
 import { message } from "antd"
 import { supportMediaTypes } from "../common"
+import { ComponentData } from "../component-parse"
 import request from "../utils/http"
 
 /**
@@ -64,4 +65,13 @@ export const uploadFile = async (file: any): Promise<{ token: string }> => {
     message.error(err.massge)
   }
   return data
+}
+
+export const getPageData = async (): Promise<ComponentData> => {
+  const data = await request<ComponentData>("/api/pageData/get", {});
+  return data;
+}
+
+export const savePageData = async (pageData: ComponentData) => {
+  await request("/api/pageData/save", { method: "POST", body: { pageData } as any });
 }

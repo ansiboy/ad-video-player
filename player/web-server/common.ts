@@ -1,4 +1,6 @@
+import { VirtualDirectory } from "maishu-node-mvc";
 import config from "../config";
+import * as path from "path";
 
 export let servicePaths = {
     upload: `${config.apiRoot}/media/upload`,
@@ -7,12 +9,19 @@ export let servicePaths = {
     logout: `${config.apiRoot}/user/logout`,
     changePassword: `${config.apiRoot}/user/change-password`,
     screenList: `${config.apiRoot}/screen/list`,
-    screenSave: `${config.apiRoot}/screen/save`
+    screenSave: `${config.apiRoot}/screen/save`,
+    getPageData: `${config.apiRoot}/pageData/get`,
+    savePageData: `${config.apiRoot}/pageData/save`
 }
 
-export let anonymousPaths = {
+export const anonymousPaths = {
     login: servicePaths.login
 }
 
-export let videoExtNames = [".mp4"];
-export let imageExtNames = [".jpg", ".png", ".webp", ".gif"]
+export const videoExtNames = [".mp4"];
+export const imageExtNames = [".jpg", ".png", ".webp", ".gif"];
+export const pageDataFileName = "screen.json";
+
+export const projectRootDirectory = new VirtualDirectory(__dirname);
+projectRootDirectory.setPath("/static/medias", path.join(__dirname, "../medias"));
+projectRootDirectory.setPath("/static", path.join(__dirname, "../build"));

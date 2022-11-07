@@ -1,3 +1,4 @@
+import { Empty } from "antd";
 import React from "react";
 import { AdView } from "../ad-views/ad-view";
 import { componentChildrenArray, ComponentRelateion, EditorPageContext } from "../common";
@@ -28,6 +29,9 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
 
     render(): React.ReactNode {
         let children = componentChildrenArray(this.props.children);
+        if (children.length == 0) {
+            return <Empty description="请点击“添加”按钮添加屏幕"></Empty>
+        }
         return <EditorPageContext.Consumer>
             {args => {
                 return <ComponentRelateion.Provider value={{ parent: this, children: this.children }}>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, PageHeader, Button, Menu, Dropdown, Empty } from "antd";
-import { DeleteOutlined, ArrowLeftOutlined, ArrowRightOutlined, LineOutlined, PlusOutlined } from "@ant-design/icons";
+import { Col, Row, PageHeader, Button, Menu, Dropdown, Empty, Modal, message } from "antd";
+import { DeleteOutlined, ArrowLeftOutlined, ArrowRightOutlined, LineOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
 import { ComponentData, ComponentProps, loadComponentData, parseComponentData } from "../../component-parse";
-import { DefaultPlaySeconds, EditorPageContext, EditorPageContextValue } from "../../common";
+import { DefaultPlaySeconds, EditorPageContext, EditorPageContextValue, strings } from "../../common";
 import "./edit.scss";
 import { componentPropertyChanged, ComponentTypeName, typeNames } from "../../type-names";
 import { PropertyEditorPanel } from "./edit/property-editor-panel";
@@ -12,6 +12,7 @@ import { showError } from "../../ui";
 import errors from "../../errors";
 import { AdViewProps } from "../../ad-views/ad-view";
 import { ViewCarouselProps } from "../../view-carousel";
+import * as service from "../../services/user";
 
 export default function EditPage() {
 
@@ -23,6 +24,8 @@ export default function EditPage() {
     let [screensCount, setScreensCount] = useState(0);
     let [screenIndex, setScreenIndex] = useState(0);
     let [selectedComponentId, setSelectedComponentId] = useState(null as string | null);
+    let [saving, setSaving] = useState(false);
+
     let contextValue: EditorPageContextValue = {
         screenIndex: screenIndex,
         setScreenIndex: (value) => {
@@ -71,7 +74,7 @@ export default function EditPage() {
     }
 
     function addScreen(screenType: ComponentTypeName) {
-        if (!pageData) throw new Error("Pagedata is null.");
+        if (!pageData) throw errors.pageDataNull();
 
         let newChildData = () => {
             let c: ComponentData = {
@@ -125,6 +128,44 @@ export default function EditPage() {
         screenDialog.show();
     }
 
+    function removeScreen() {
+        if (!pageData) throw errors.pageDataNull();
+
+        let children = pageData.props.children || [];
+        children = children.filter((o, i) => i != screenIndex);
+        pageData.props.children = children;
+
+        if (children.length == 0) {
+            screenIndex = -1;
+        }
+        else if (screenIndex > children.length - 1) {
+            screenIndex = 0;
+        }
+
+        let selectedComponentData = children[screenIndex];
+        if (!selectedComponentData) {
+            selectedComponentData = pageData;
+        }
+        // else {
+        setScreenIndex(screenIndex);
+        // }
+
+        setSelectedComponentId(selectedComponentData.props.id);
+        pageData = JSON.parse(JSON.stringify(pageData));
+        setPageData(pageData);
+    }
+
+    async function savePageData() {
+        if (!pageData) throw errors.pageDataNull();
+
+        setSaving(true)
+        service.savePageData(pageData).then(() => {
+            message.success({ content: strings.saveSuccess })
+        }).finally(() => {
+            setSaving(false);
+        });
+    }
+
     return <EditorPageContext.Provider value={contextValue}>
         <ScreenDialog key={guid()}
             ref={e => screenDialog = e || screenDialog}
@@ -146,7 +187,12 @@ export default function EditPage() {
                         console.log("click")
                         showScreenDialog();
                     }}>添加</Button>,
-                    <Button key="delete-screen" icon={<DeleteOutlined />}>删除</Button>,
+                    <Button key="delete-screen" icon={<DeleteOutlined />} onClick={() => removeScreen()}>
+                        删除
+                    </Button>,
+                    <Button key="save-screen" icon={<SaveOutlined />} onClick={() => savePageData()} loading={saving}>
+                        保存
+                    </Button>
                 ]} />
                 <div style={{ paddingLeft: 20, paddingRight: 20 }}>
                     {renderComponentData(pageData)}

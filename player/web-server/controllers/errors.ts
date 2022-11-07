@@ -22,6 +22,24 @@ class Errors extends BaseErrors {
         error.name = Errors.prototype.fileTypeNotSupported.name;
         return error;
     }
+    staticRootDirectoryNotExists() {
+        let msg = `Static directory is not exists in the root directory.`;
+        let error = new Error(msg);
+        error.name = Errors.prototype.staticRootDirectoryNotExists.name;
+        return error;
+    }
+    staticDirectoryNotContainsFile(filename: string) {
+        let msg = `Static directory not contains file '${filename}'.`;
+        let error = new Error(msg);
+        error.name = Errors.prototype.staticRootDirectoryNotExists.name;
+        return error;
+    }
+    fileNotExists(filePath: string) {
+        let msg = `File path '${filePath}' is not exists.`;
+        let error = new Error(msg);
+        error.name = Errors.prototype.fileNotExists.name;
+        return error;
+    }
 }
 
 let errors = new Errors();
