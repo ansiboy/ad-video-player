@@ -1,13 +1,8 @@
-import { startServer, VirtualDirectory } from "maishu-node-mvc";
+import { startServer } from "maishu-node-mvc";
 import config from "../config";
 import * as path from "path";
 import * as url from "url";
 import { projectRootDirectory } from "./common";
-
-// let dir = new VirtualDirectory(__dirname);
-console.log(__dirname);
-
-
 
 let server = startServer({
   port: config.webPort,

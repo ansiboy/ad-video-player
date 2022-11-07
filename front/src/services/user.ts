@@ -67,11 +67,27 @@ export const uploadFile = async (file: any): Promise<{ token: string }> => {
   return data
 }
 
+/** 
+ * 获取页面数据 
+ */
 export const getPageData = async (): Promise<ComponentData> => {
   const data = await request<ComponentData>("/api/pageData/get", {});
   return data;
 }
 
+/**
+ * 保存页面数据
+ * @param pageData 页面数据
+ */
 export const savePageData = async (pageData: ComponentData) => {
   await request("/api/pageData/save", { method: "POST", body: { pageData } as any });
+}
+
+export const getRemoteControl = async () => {
+  let r = await request<boolean>("/api/remoteControl/get", {});
+  return r;
+}
+
+export const setRemoteControl = async (value: boolean) => {
+  await request("/api/remoteControl/set", { body: { value } as any });
 }

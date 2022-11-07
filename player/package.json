@@ -6,10 +6,12 @@
   "dependencies": {
     "auto-launch": "^5.0.5",
     "electron": "^21.2.0",
-    "maishu-node-mvc": "^2.33.0"
+    "maishu-node-mvc": "^2.33.0",
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/auto-launch": "^5.0.2",
+    "@types/shelljs": "^0.8.11",
     "electron": "latest"
   },
   "scripts": {

@@ -1,0 +1,8 @@
+{
+    "user": {
+        "name": "admin",
+        "password": "000000"
+    },
+    "token": "",
+    "remoteControl": false
+}

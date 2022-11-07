@@ -1,5 +1,5 @@
 
-import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
+import { app, BrowserWindow, Menu, shell } from 'electron';
 import auto from './auto-run';
 import config from './config';
 
@@ -10,7 +10,6 @@ const createWindow = async () => {
         autoHideMenuBar: true,
         webPreferences: { webSecurity: false, devTools: true }
     })
-
 
     let isAuto = await auto.isEnabled()
     let menu = Menu.buildFromTemplate([{
@@ -35,6 +34,13 @@ const createWindow = async () => {
                     win.setFullScreen(item.checked);
                 },
                 checked: win.isFullScreen()
+            },
+            {
+                label: "管理后台",
+                type: "normal",
+                click() {
+                    shell.openExternal(`http://127.0.0.1:${config.webPort}/admin/login`)
+                }
             },
             {
                 label: '退出',

@@ -7,7 +7,8 @@ let config = {
     // videosPhysicalPath: path.join(__dirname, "medias/videos"),
     // imagesPhysicalPath: path.join(__dirname, "medias/images")
     medias: "medias",
-    apiRoot: "/api"
+    apiRoot: "/api",
+    mgrokDirectoryName: "mgrok"
 }
 
 export default config;

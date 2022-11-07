@@ -4,7 +4,7 @@ import * as fs from "fs";
 import config from "../../config";
 import errors from "./errors";
 import { guid } from "maishu-toolkit";
-import { User } from "../user";
+import UserData from "../user-data";
 import { files } from "../decorators";
 import { FormPart } from "../decorators/form-parse";
 import * as path from "path";
@@ -27,20 +27,29 @@ export default class HomeController {
     if (!d.password)
       throw errors.routeDataFieldNull("password");
 
-    if (User.info.name != d.username || User.info.password != d.password)
+    if (UserData.info.user.name != d.username || UserData.info.user.password != d.password)
       throw errors.usernameOrPasswordIncorect()
 
-    User.info.token = guid();
-    User.save();
+    UserData.info.token = guid();
+    UserData.save();
     return {
-      token: User.info.token
+      token: UserData.info.token
     }
+  }
+
+  @action(servicePaths.changePassword)
+  async changePassword(@routeData d: { username: string, password: string }) {
+    if (!d.username)
+      throw errors.routeDataFieldNull("username");
+    if (!d.password)
+      throw errors.routeDataFieldNull("password");
+
   }
 
   @action(servicePaths.logout)
   async logout() {
-    User.info.token = "";
-    User.save();
+    UserData.info.token = "";
+    UserData.save();
   }
 
   @action(servicePaths.upload)
@@ -61,16 +70,6 @@ export default class HomeController {
     }
   }
 
-  @action(servicePaths.screenList)
-  async screenList() {
-
-  }
-
-  @action(servicePaths.screenSave)
-  async saveScreen() {
-
-  }
-
   @action(servicePaths.getPageData)
   async getPageData() {
     let pageDataPath = this.getPageDataPath();
@@ -85,6 +84,20 @@ export default class HomeController {
 
     let pageDataPath = this.getPageDataPath();
     fs.writeFileSync(pageDataPath, JSON.stringify(d.pageData));
+  }
+
+  @action(servicePaths.getRemoteControl)
+  async getRemoteControl() {
+    return UserData.info.remoteControl;
+  }
+
+  @action(servicePaths.setRemoteControl)
+  async setRemoteControl(@routeData d: { value: boolean }) {
+    if (d.value == null)
+      throw errors.routeDataFieldNull("value");
+
+    UserData.info.remoteControl = d.value;
+    UserData.save();
   }
 
   private getPageDataPath(): string {

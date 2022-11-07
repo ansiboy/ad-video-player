@@ -8,10 +8,12 @@ export let servicePaths = {
     login: `${config.apiRoot}/user/login`,
     logout: `${config.apiRoot}/user/logout`,
     changePassword: `${config.apiRoot}/user/change-password`,
-    screenList: `${config.apiRoot}/screen/list`,
-    screenSave: `${config.apiRoot}/screen/save`,
+    // screenList: `${config.apiRoot}/screen/list`,
+    // screenSave: `${config.apiRoot}/screen/save`,
     getPageData: `${config.apiRoot}/pageData/get`,
-    savePageData: `${config.apiRoot}/pageData/save`
+    savePageData: `${config.apiRoot}/pageData/save`,
+    getRemoteControl: `${config.apiRoot}/remoteControl/get`,
+    setRemoteControl: `${config.apiRoot}/remoteControl/set`,
 }
 
 export const anonymousPaths = {
