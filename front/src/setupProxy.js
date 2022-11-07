@@ -7,5 +7,17 @@ module.exports = function (app) {
         // pathRewrite: {
         //   "^/user": "/user"
         // }
+    }), createProxyMiddleware("/medias", {
+        target: 'http://127.0.0.1:42986', // 请求的地址
+        // changeOrigin: true,
+        // pathRewrite: {
+        //   "^/user": "/user"
+        // }
+    }), createProxyMiddleware("/media", {
+        target: 'http://127.0.0.1:42986', // 请求的地址
+        // changeOrigin: true,
+        // pathRewrite: {
+        //   "^/user": "/user"
+        // }
     }));
 };

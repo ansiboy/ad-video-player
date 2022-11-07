@@ -72,7 +72,7 @@ const UploadImage = props => {
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(antd_1.Spin, { spinning: loading, size: 'small' },
             react_1.default.createElement(antd_1.Upload, { listType: 'picture', beforeUpload: onBeforeUpload, accept: type === 'video' ? 'video/mp4' : 'image/jpg,image/jpeg,image/png', showUploadList: false },
-                react_1.default.createElement(antd_1.Button, { icon: react_1.default.createElement(icons_1.UploadOutlined, null) },
+                react_1.default.createElement(antd_1.Button, { type: 'primary', icon: react_1.default.createElement(icons_1.UploadOutlined, null) },
                     "\u4E0A\u4F20",
                     type === 'video' ? '视频' : '图片')))));
 };

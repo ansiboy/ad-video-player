@@ -4,70 +4,65 @@ import React from 'react'
 import { guid } from 'maishu-toolkit'
 import { PlusOutlined } from '@ant-design/icons'
 import ModelImage from '../pages/admin/edit/modelImage'
+import SortImageEditor from '../pages/admin/edit/sortImageEditor'
 
-type Props = EditorProps<string[]>
+type Props = EditorProps<string[]> & {
+  type: string
+}
 type State = EditorState<string[]> & {
   visible: boolean
 }
-export default class ImagePathsEditor extends React.Component<Props, State> {
-  constructor (props: Props) {
-    super(props)
 
-    this.state = {
-      visible: false
+export default function CreateImagePathsEditorType (type: 'video' | 'image') {
+  return class ImagePathsEditor extends React.Component<Props, State> {
+    constructor (props: Props) {
+      super(props)
+
+      this.state = {
+        visible: false
+      }
     }
-  }
 
-  render () {
-    let imagePaths = this.props.propertyValue || []
-    return (
-      <>
-        <Space direction='vertical' size={10}>
-          {imagePaths.map((o, i) => (
-            <Input
-              key={guid()}
-              value={o}
-              onChange={e => {
-                imagePaths[i] = e.target.value
+    // this.props.changed(imagePaths)
 
-                this.setState({ propertyValue: imagePaths })
-                this.props.changed(imagePaths)
+    render () {
+      let imagePaths = this.props.propertyValue || []
+      return (
+        <>
+          <Space direction='vertical' size={10}>
+            <SortImageEditor
+              data={imagePaths}
+              onSort={value => {
+                this.props.changed(value)
               }}
             />
-          ))}
 
-          <Button
-            type='primary'
-            onClick={() => {
-              this.setState({
-                visible: true
-              })
-            }}
-          >
-            <PlusOutlined /> 选择图片/视频
-          </Button>
-          {/* <Input key={guid()} value="" onChange={e => {
-                if (!e.target.value)
-                    return;
+            <Button
+              type='primary'
+              onClick={() => {
+                this.setState({
+                  visible: true
+                })
+              }}
+            >
+              <PlusOutlined /> 选择{type === 'video' ? '视频' : '图片'}
+            </Button>
+          </Space>
 
-                imagePaths.push(e.target.value)
-                this.setState({ propertyValue: imagePaths });
-                this.props.changed(imagePaths);
-
-            }} /> */}
-        </Space>
-
-        {this.state.visible ? (
-          <ModelImage
-            visible={this.state.visible}
-            type='video'
-            onOk={() => {
-              this.setState({ visible: false })
-            }}
-            onCancel={() => this.setState({ visible: false })}
-          />
-        ) : null}
-      </>
-    )
+          {this.state.visible ? (
+            <ModelImage
+              visible={this.state.visible}
+              type={type}
+              data={imagePaths}
+              onOk={value => {
+                this.setState({ visible: false })
+                this.props.changed(value)
+              }}
+              onCancel={() => this.setState({ visible: false })}
+            />
+          ) : null}
+        </>
+      )
+    }
   }
 }

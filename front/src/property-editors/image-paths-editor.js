@@ -5,35 +5,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const antd_1 = require("antd");
 const react_1 = __importDefault(require("react"));
-const maishu_toolkit_1 = require("maishu-toolkit");
 const icons_1 = require("@ant-design/icons");
 const modelImage_1 = __importDefault(require("../pages/admin/edit/modelImage"));
-class ImagePathsEditor extends react_1.default.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visible: false
-        };
-    }
-    render() {
-        let imagePaths = this.props.propertyValue || [];
-        return (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement(antd_1.Space, { direction: 'vertical', size: 10 },
-                imagePaths.map((o, i) => (react_1.default.createElement(antd_1.Input, { key: (0, maishu_toolkit_1.guid)(), value: o, onChange: e => {
-                        imagePaths[i] = e.target.value;
-                        this.setState({ propertyValue: imagePaths });
-                        this.props.changed(imagePaths);
-                    } }))),
-                react_1.default.createElement(antd_1.Button, { type: 'primary', onClick: () => {
-                        this.setState({
-                            visible: true
-                        });
-                    } },
-                    react_1.default.createElement(icons_1.PlusOutlined, null),
-                    " \u9009\u62E9\u56FE\u7247/\u89C6\u9891")),
-            this.state.visible ? (react_1.default.createElement(modelImage_1.default, { visible: this.state.visible, type: 'video', onOk: () => {
-                    this.setState({ visible: false });
-                }, onCancel: () => this.setState({ visible: false }) })) : null));
-    }
+const sortImageEditor_1 = __importDefault(require("../pages/admin/edit/sortImageEditor"));
+function CreateImagePathsEditorType(type) {
+    return class ImagePathsEditor extends react_1.default.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                visible: false
+            };
+        }
+        // this.props.changed(imagePaths)
+        render() {
+            let imagePaths = this.props.propertyValue || [];
+            return (react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement(antd_1.Space, { direction: 'vertical', size: 10 },
+                    react_1.default.createElement(sortImageEditor_1.default, { data: imagePaths, onSort: value => {
+                            this.props.changed(value);
+                        } }),
+                    react_1.default.createElement(antd_1.Button, { type: 'primary', onClick: () => {
+                            this.setState({
+                                visible: true
+                            });
+                        } },
+                        react_1.default.createElement(icons_1.PlusOutlined, null),
+                        " \u9009\u62E9",
+                        type === 'video' ? '视频' : '图片')),
+                this.state.visible ? (react_1.default.createElement(modelImage_1.default, { visible: this.state.visible, type: type, data: imagePaths, onOk: value => {
+                        this.setState({ visible: false });
+                        this.props.changed(value);
+                    }, onCancel: () => this.setState({ visible: false }) })) : null));
+        }
+    };
 }
-exports.default = ImagePathsEditor;
+exports.default = CreateImagePathsEditorType;

@@ -36,3 +36,45 @@
     }
   }
 }
+
+.sorts {
+  padding: 0;
+
+  li {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+
+
+    .sort-icon {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: move;
+    }
+
+    .sort-image {
+      width: 50px;
+      height: 50px;
+      border: #ddd 1px solid;
+      overflow: hidden;
+      margin-right: 6px;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .sort-text {
+      flex: 1;
+      font-size: 14px;
+      
+    }
+  }
+}

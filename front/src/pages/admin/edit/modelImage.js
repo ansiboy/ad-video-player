@@ -27,31 +27,51 @@ const react_1 = __importStar(require("react"));
 const uploadImage_1 = __importDefault(require("./uploadImage"));
 require("./model-image.scss");
 const user_1 = require("../../../services/user");
+const utils_1 = require("../../../utils/utils");
 const ModelImage = props => {
-    const { visible, type, onCancel, onOk } = props;
+    const { visible, type, onCancel, onOk, isRadio = false, data = [] } = props;
     const [list, setList] = (0, react_1.useState)([]);
     (0, react_1.useEffect)(() => {
         getList();
     }, []);
+    /**
+     * 将数据转换
+     * @date 2022-11-07
+     * @param {any} arr:string[]
+     * @returns {any}
+     */
+    const handleData = (arr) => {
+        const getImagesList = arr.reduce((prev, curr) => {
+            let obj = {
+                value: '',
+                checked: false
+            };
+            if (data.includes(curr)) {
+                obj.checked = true;
+            }
+            obj.value = curr;
+            prev.push(obj);
+            return prev;
+        }, []);
+        return getImagesList;
+    };
+    /**
+     * 获取图片/视频数据
+     * @date 2022-11-07
+     * @returns {any}
+     */
     const getList = async () => {
         const getlocalStorageList = localStorage.getItem(`${type}List`);
         if (getlocalStorageList) {
             const arr = JSON.parse(getlocalStorageList);
-            setList(arr);
+            const overData = handleData(arr);
+            setList(overData);
         }
         else {
             (0, user_1.getAllList)(type).then(res => {
-                const data = res.reduce((prev, curr) => {
-                    let obj = {
-                        value: '',
-                        checked: false
-                    };
-                    obj.value = curr;
-                    prev.push(obj);
-                    return prev;
-                }, []);
-                localStorage.setItem(`${type}List`, JSON.stringify(data));
-                setList(data);
+                localStorage.setItem(`${type}List`, JSON.stringify(res));
+                const overData = handleData(res);
+                setList(overData);
             });
         }
     };
@@ -75,14 +95,33 @@ const ModelImage = props => {
                     } }),
                 react_1.default.createElement(antd_1.Space, { size: 12, style: { marginLeft: 'auto' } },
                     react_1.default.createElement(antd_1.Button, { onClick: onCancel }, "\u53D6\u6D88"),
-                    react_1.default.createElement(antd_1.Button, { type: 'primary' }, "\u786E\u5B9A"))) },
+                    react_1.default.createElement(antd_1.Button, { type: 'primary', onClick: () => {
+                            const value = list
+                                .filter(item => item.checked)
+                                .map(item => item.value);
+                            if (!value.length) {
+                                antd_1.message.warning(`请至少选择一个${type === 'image' ? '图片' : '视频'}`);
+                                return;
+                            }
+                            onOk(value);
+                        } }, "\u786E\u5B9A"))) },
             react_1.default.createElement("div", { className: 'model-items' }, list.map(item => (react_1.default.createElement("div", { key: item.value, className: item.checked ? 'model-item active' : 'model-item', onClick: () => {
                     const arr = JSON.parse(JSON.stringify(list));
-                    arr.map(o => {
-                        if (o.value === item.value)
-                            o.checked = !o.checked;
-                    });
+                    if (!isRadio) {
+                        arr.map(o => {
+                            if (o.value === item.value)
+                                o.checked = !o.checked;
+                        });
+                    }
+                    else {
+                        arr.map(o => {
+                            o.checked = false;
+                            if (o.value === item.value) {
+                                o.checked = !o.checked;
+                            }
+                        });
+                    }
                     setList(arr);
-                } }, type === 'image' ? (react_1.default.createElement("img", { src: `/medias/${item.value}`, alt: '' })) : (react_1.default.createElement("video", { src: `/medias/${item.value}` })))))))));
+                } }, type === 'image' ? (react_1.default.createElement("img", { src: (0, utils_1.imagePath)(item.value), alt: '' })) : (react_1.default.createElement("video", { src: (0, utils_1.imagePath)(item.value) })))))))));
 };
 exports.default = ModelImage;

@@ -75,7 +75,7 @@ const UploadImage: FC<Props> = props => {
           }
           showUploadList={false}
         >
-          <Button icon={<UploadOutlined />}>
+          <Button type='primary' icon={<UploadOutlined />}>
             上传{type === 'video' ? '视频' : '图片'}
           </Button>
         </Upload>
