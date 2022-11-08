@@ -1,6 +1,0 @@
-node_modules
-*.js
-web-server/static
-build
-*.map
-out

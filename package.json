@@ -1,0 +1,49 @@
+{
+  "name": "ad-video-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "out/index.js",
+  "dependencies": {
+    "antd": "^4.24.1",
+    "auto-launch": "^5.0.5",
+    "electron": "^21.2.2",
+    "maishu-node-mvc": "^2.33.0",
+    "maishu-node-web-server": "^1.41.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "^5.0.1",
+    "react-sortablejs": "^6.1.4",
+    "shelljs": "^0.8.5",
+    "typescript": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/auto-launch": "^5.0.2",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "@types/shelljs": "^0.8.11"
+  },
+  "scripts": {
+    "e": "electron .",
+    "start": "node scripts/start.js",
+    "build": "set BUILD_PATH=build&& node scripts/build.js",
+    "test": "node scripts/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/zhuo-wang/ad-video-player"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

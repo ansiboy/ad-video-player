@@ -1,1 +1,5 @@
-*.rar
+node_modules
+web-server/static
+build
+*.map
+out
