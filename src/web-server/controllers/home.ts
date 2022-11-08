@@ -80,9 +80,7 @@ export default class HomeController {
 
     let filePath = path.join(config.mediasPhysicalPath, file.filename);
     fs.writeFileSync(filePath, file.content);
-    return {
-      status: 200
-    }
+    return `${config.mgrokDirectoryName}/${file.filename}`;
   }
 
   @action(servicePaths.getPageData)
