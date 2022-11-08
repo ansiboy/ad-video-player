@@ -5,6 +5,7 @@ import * as path from "path";
 export let servicePaths = {
     upload: `${config.apiRoot}/media/upload`,
     medias: `${config.apiRoot}/media/list`,
+    delete: `${config.apiRoot}/media/delete`,
     login: `${config.apiRoot}/user/login`,
     logout: `${config.apiRoot}/user/logout`,
     changePassword: `${config.apiRoot}/user/change-password`,

@@ -1,4 +1,4 @@
-import { Button, message, Modal, Space, Tooltip } from 'antd'
+import { Button, Empty, message, Modal, Space, Tooltip } from 'antd'
 import React, { FC, useEffect, useState } from 'react'
 import UploadImage from './uploadImage'
 import './model-image.scss'
@@ -122,46 +122,54 @@ const ModelImage: FC<Props> = props => {
         }
       >
         <div className='model-items'>
-          {list.map(item => (
-            <div
-              key={item.value}
-              className={item.checked ? 'model-item active' : 'model-item'}
-              onClick={() => {
-                const arr: Item[] = JSON.parse(JSON.stringify(list))
-                if (!isRadio) {
-                  arr.map(o => {
-                    if (o.value === item.value) o.checked = !o.checked
-                  })
-                } else {
-                  arr.map(o => {
-                    o.checked = false
-                    if (o.value === item.value) {
-                      o.checked = !o.checked
-                    }
-                  })
-                }
-                setList(arr)
-              }}
-            >
-              <Tooltip title={item.value}>
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  {type === 'image' ? (
-                    <img src={imagePath(item.value)} alt='' />
-                  ) : (
-                    <video src={imagePath(item.value)}></video>
-                  )}
-                </div>
-              </Tooltip>
-            </div>
-          ))}
+          {list.length ? (
+            list.map(item => (
+              <div
+                key={item.value}
+                className={item.checked ? 'model-item active' : 'model-item'}
+                onClick={() => {
+                  const arr: Item[] = JSON.parse(JSON.stringify(list))
+                  if (!isRadio) {
+                    arr.map(o => {
+                      if (o.value === item.value) o.checked = !o.checked
+                    })
+                  } else {
+                    arr.map(o => {
+                      o.checked = false
+                      if (o.value === item.value) {
+                        o.checked = !o.checked
+                      }
+                    })
+                  }
+                  setList(arr)
+                }}
+              >
+                <Tooltip title={item.value}>
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    {type === 'image' ? (
+                      <img src={imagePath(item.value)} alt='' />
+                    ) : (
+                      <video src={imagePath(item.value)}></video>
+                    )}
+                  </div>
+                </Tooltip>
+              </div>
+            ))
+          ) : (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={`暂无${type === 'image' ? '图片' : '视频'}`}
+            />
+          )}
         </div>
       </Modal>
     </>

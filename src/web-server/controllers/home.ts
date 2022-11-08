@@ -21,6 +21,20 @@ export default class HomeController {
     return files;
   }
 
+  @action(servicePaths.delete)
+  async delete(@routeData d: { name: string }) {
+    if (!d.name)
+      throw errors.routeDataFieldNull("name");
+
+    const filePath = path.join(__dirname, `..${imagePath(d.name)}`)
+
+    if (!fs.existsSync(filePath))
+      throw errors.pathNotExists(config.mediasPhysicalPath);
+
+    const unLink = fs.unlinkSync(filePath)
+    return unLink;
+  }
+
   @action(servicePaths.login)
   async login(@routeData d: { username: string, password: string }) {
     if (!d.username)
@@ -114,4 +128,16 @@ export default class HomeController {
     return pageDataPhysicalPath;
   }
 
+}
+
+/**
+ * 图片路径
+ * @date 2022-11-07
+ * @param {any} imagePath:string
+ * @returns {any}
+ */
+export const imagePath = (imagePath: string): string => {
+  if (imagePath.startsWith("/medias/"))
+    return imagePath;
+  return `/medias/${imagePath}`
 }

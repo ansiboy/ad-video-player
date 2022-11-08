@@ -44,7 +44,7 @@ export class VideoEditor extends React.Component<
             isRadio
             onOk={value => {
               this.setState({ visible: false })
-              this.props.changed(value[0])
+              this.props.changed(imagePath(value[0]))
             }}
             onCancel={() => this.setState({ visible: false })}
           />
