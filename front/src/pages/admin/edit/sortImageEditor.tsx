@@ -21,9 +21,6 @@ const SortImageEditor: FC<Props> = props => {
         list={data as any}
         setList={list => {
           props.onSort(list as any)
-          // setTimeout(() => {
-
-          // }, 100)
         }}
         handle='.sort-icon'
       >

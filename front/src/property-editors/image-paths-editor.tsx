@@ -18,13 +18,10 @@ export default function CreateImagePathsEditorType(type: 'video' | 'image') {
   return class ImagePathsEditor extends React.Component<Props, State> {
     constructor(props: Props) {
       super(props)
-
       this.state = {
         visible: false
       }
     }
-
-    // this.props.changed(imagePaths)
 
     render() {
       let imagePaths = (this.props.propertyValue || []).map(o => imagePath(o));
