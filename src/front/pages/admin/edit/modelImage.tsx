@@ -59,18 +59,10 @@ const ModelImage: FC<Props> = props => {
    * @returns {any}
    */
   const getList = async () => {
-    const getlocalStorageList = localStorage.getItem(`${type}List`)
-    if (getlocalStorageList) {
-      const arr = JSON.parse(getlocalStorageList)
-      const overData = handleData(arr)
+    getAllList(type).then(res => {
+      const overData = handleData(res)
       setList(overData)
-    } else {
-      getAllList(type).then(res => {
-        localStorage.setItem(`${type}List`, JSON.stringify(res))
-        const overData = handleData(res)
-        setList(overData)
-      })
-    }
+    })
   }
 
   return (
