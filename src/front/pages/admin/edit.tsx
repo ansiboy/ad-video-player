@@ -114,14 +114,14 @@ export default function EditPage() {
             }
         };
 
-        (componentData.props as any as AdViewProps).playSeconds = DefaultPlaySeconds;
+        (componentData.props as AdViewProps).playSeconds = DefaultPlaySeconds;
 
         screenIndex = screenIndex + 1;
         let children = pageData.props.children = pageData.props.children || [];
         children.splice(screenIndex, 0, componentData);
 
         console.assert((pageData as ComponentData).type == typeNames.ViewCarousel);
-        ((pageData as ComponentData).props as any as ViewCarouselProps).activeIndex = screenIndex;
+        ((pageData as ComponentData).props as ViewCarouselProps).activeIndex = screenIndex;
 
         pageData = JSON.parse(JSON.stringify(pageData));
         setPageData(pageData);

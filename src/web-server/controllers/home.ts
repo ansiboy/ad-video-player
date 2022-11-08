@@ -1,5 +1,5 @@
 import { controller, action, routeData } from "maishu-node-mvc";
-import { imageExtNames, pageDataFileName, projectRootDirectory, servicePaths, videoExtNames } from "../common";
+import { imageExtNames, pageDataPhysicalPath, projectRootDirectory, servicePaths, videoExtNames } from "../common";
 import * as fs from "fs";
 import config from "../../config";
 import errors from "./errors";
@@ -101,15 +101,17 @@ export default class HomeController {
   }
 
   private getPageDataPath(): string {
-    let staticDirectory = projectRootDirectory.findDirectory("static");
-    if (!staticDirectory)
-      throw errors.staticRootDirectoryNotExists();
+    // let staticDirectory = projectRootDirectory.findDirectory("static");
+    // if (!staticDirectory)
+    //   throw errors.staticRootDirectoryNotExists();
 
-    let pageDataPath = staticDirectory.findFile(pageDataFileName);
-    if (!pageDataPath)
-      throw errors.staticDirectoryNotContainsFile(pageDataFileName);
+    // let pageDataPath = staticDirectory.findFile(pageDataFileName);
+    // if (!pageDataPath)
+    //   throw errors.staticDirectoryNotContainsFile(pageDataFileName);
+    if (!fs.existsSync(pageDataPhysicalPath))
+      throw errors.pathNotExists(pageDataPhysicalPath);
 
-    return pageDataPath;
+    return pageDataPhysicalPath;
   }
 
 }

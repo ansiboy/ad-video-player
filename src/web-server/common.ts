@@ -22,8 +22,8 @@ export const anonymousPaths = {
 
 export const videoExtNames = [".mp4"];
 export const imageExtNames = [".jpg", ".png", ".webp", ".gif"];
-export const pageDataFileName = "screen.json";
+export const pageDataPhysicalPath = path.join(__dirname, "../../screen.json");
 
 export const projectRootDirectory = new VirtualDirectory(__dirname);
 projectRootDirectory.setPath("/static/medias", path.join(__dirname, "../../medias"));
-projectRootDirectory.setPath("/static", path.join(__dirname, "../../build"));
+projectRootDirectory.setPath("/static", path.join(__dirname, "../../build"))

@@ -1,4 +1,4 @@
-import { Button, message, Modal, Space } from 'antd'
+import { Button, message, Modal, Space, Tooltip } from 'antd'
 import React, { FC, useEffect, useState } from 'react'
 import UploadImage from './uploadImage'
 import './model-image.scss'
@@ -143,11 +143,23 @@ const ModelImage: FC<Props> = props => {
                 setList(arr)
               }}
             >
-              {type === 'image' ? (
-                <img src={imagePath(item.value)} alt='' />
-              ) : (
-                <video src={imagePath(item.value)}></video>
-              )}
+              <Tooltip title={item.value}>
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  {type === 'image' ? (
+                    <img src={imagePath(item.value)} alt='' />
+                  ) : (
+                    <video src={imagePath(item.value)}></video>
+                  )}
+                </div>
+              </Tooltip>
             </div>
           ))}
         </div>

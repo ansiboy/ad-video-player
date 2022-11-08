@@ -1,0 +1,77 @@
+{
+    "type": "ViewCarousel",
+    "props": {
+        "children": [
+            {
+                "type": "OneSplitView",
+                "props": {
+                    "id": "9fc816b1-1f47-e23b-554f-b02cc68e64bf",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "7c4c2971-38e1-bccd-4fa7-c426ba518275",
+                                "key": "7c4c2971-38e1-bccd-4fa7-c426ba518275",
+                                "imagePaths": [
+                                    "/medias/招商启航(全屏).jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "9fc816b1-1f47-e23b-554f-b02cc68e64bf"
+                }
+            },
+            {
+                "type": "ThreeSplitView",
+                "props": {
+                    "id": "e32207a2-7165-3f27-3b48-4ebc6d788e60",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "9447c3ce-eb2d-ef4a-ab10-8b20466aff2b",
+                                "key": "9447c3ce-eb2d-ef4a-ab10-8b20466aff2b",
+                                "imagePaths": [
+                                    "/medias/3.博罗工厂.jpg",
+                                    "/medias/万麦IT.jpg",
+                                    "/medias/农场1.jpg",
+                                    "/medias/农场2.jpg",
+                                    "/medias/自主研发.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "538297cd-aefe-9041-2c2c-3ebbaf0a773c",
+                                "key": "538297cd-aefe-9041-2c2c-3ebbaf0a773c",
+                                "imagePaths": [
+                                    "/medias/加湿器.jpg",
+                                    "/medias/合作共赢.jpg",
+                                    "/medias/招商启航.jpg",
+                                    "/medias/暖手宝.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "010fc6e8-6c4d-4ddd-e9d5-07dc93672654",
+                                "key": "010fc6e8-6c4d-4ddd-e9d5-07dc93672654",
+                                "imagePaths": [
+                                    "/medias/联系我们.jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "e32207a2-7165-3f27-3b48-4ebc6d788e60"
+                }
+            }
+        ],
+        "id": "e3407f1a-398c-2c1e-583c-e79fb1f2b0c2",
+        "key": "e3407f1a-398c-2c1e-583c-e79fb1f2b0c2",
+        "activeIndex": 1
+    }
+}
