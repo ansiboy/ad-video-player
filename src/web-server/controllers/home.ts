@@ -18,21 +18,21 @@ export default class HomeController {
       throw errors.pathNotExists(config.mediasPhysicalPath);
 
     let files = fs.readdirSync(config.mediasPhysicalPath);
-    return files;
+    const filesList = files.map(item => imagePath(item))
+    return filesList;
   }
 
   @action(servicePaths.delete)
   async delete(@routeData d: { name: string }) {
     if (!d.name)
       throw errors.routeDataFieldNull("name");
-
-    const filePath = path.join(__dirname, `..${imagePath(d.name)}`)
-
+    const filePath = path.join(__dirname, `../../../${imagePath(d.name)}`)
     if (!fs.existsSync(filePath))
       throw errors.pathNotExists(config.mediasPhysicalPath);
-
-    const unLink = fs.unlinkSync(filePath)
-    return unLink;
+    fs.unlinkSync(filePath)
+    return {
+      status: 200
+    };
   }
 
   @action(servicePaths.login)
@@ -80,7 +80,9 @@ export default class HomeController {
 
     let filePath = path.join(config.mediasPhysicalPath, file.filename);
     fs.writeFileSync(filePath, file.content);
-    return `${config.mgrokDirectoryName}/${file.filename}`;
+    return {
+      name: `${config.mgrokDirectoryName}/${file.filename}`
+    };
   }
 
   @action(servicePaths.getPageData)
@@ -124,6 +126,40 @@ export default class HomeController {
       throw errors.pathNotExists(pageDataPhysicalPath);
 
     return pageDataPhysicalPath;
+  }
+
+
+  @action(servicePaths.startRemoteController)
+  startRemoteController() {
+
+    UserData.info.remoteControl = true
+    UserData.save()
+
+    // try {
+    //   const getReadFile: any = fs.readFileSync(path.join(__dirname, "../../../user-data.json"));
+    //   let data = JSON.parse(getReadFile)
+    //   data.remoteControl = true
+    //   const newJSON = JSON.stringify(data);
+    //   fs.writeFileSync(path.join(__dirname, "../../../user-data.json"), newJSON)
+    // } catch (error) {
+    //   throw error
+    // }
+    RemoteControl.start()
+    return {
+      status: 200
+    };
+  }
+
+  @action(servicePaths.stopRemoteController)
+  stopRemoteController() {
+
+    UserData.info.remoteControl = false;
+    UserData.save()
+
+    RemoteControl.stop()
+    return {
+      status: 200
+    };
   }
 
 }

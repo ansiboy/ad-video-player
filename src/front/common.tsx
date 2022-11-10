@@ -45,7 +45,7 @@ export const DefaultPlaySeconds = 15;
 
 export const supportMediaTypes = {
     video: ["mp4"],
-    image: ["jpg", "png", "jpge"]
+    image: ["jpg", "png", "jpeg"]
 }
 
 export const httpContentTypes = {

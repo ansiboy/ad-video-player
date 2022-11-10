@@ -1,9 +1,21 @@
-import { Button, Empty, message, Modal, Space, Tooltip } from 'antd'
+import {
+  Badge,
+  Button,
+  Empty,
+  message,
+  Modal,
+  Popconfirm,
+  Space,
+  Spin,
+  Tooltip
+} from 'antd'
+import { CloseOutlined } from '@ant-design/icons'
 import React, { FC, useEffect, useState } from 'react'
 import UploadImage from './uploadImage'
 import './model-image.scss'
-import { getAllList } from '../../../services/user'
+import { deleteFile, getAllList } from '../../../services/user'
 import { imagePath } from '../../../utils/utils'
+import LoadAgain from './loadAgain'
 
 interface Props {
   visible: boolean
@@ -19,10 +31,16 @@ interface Item {
   checked: boolean
 }
 
+const deleteKey = 'deleteKey'
+
 const ModelImage: FC<Props> = props => {
   const { visible, type, onCancel, onOk, isRadio = false, data = [] } = props
 
   const [list, setList] = useState<Item[]>([])
+  const [showDelete, setShowDelete] = useState<boolean>(false)
+  const [selectData, setSelectData] = useState<string[]>(data)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [loadAgain, setLoadAgain] = useState<boolean>(false)
 
   useEffect(() => {
     getList()
@@ -59,10 +77,36 @@ const ModelImage: FC<Props> = props => {
    * @returns {any}
    */
   const getList = async () => {
-    getAllList(type).then(res => {
-      const overData = handleData(res)
-      setList(overData)
-    })
+    setLoading(true)
+    getAllList(type)
+      .then(res => {
+        const overData = handleData(res)
+        setList(overData)
+        setLoadAgain(false)
+      })
+      .catch(err => {
+        setLoadAgain(true)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  const deletePic = async (name: string) => {
+    message.loading({ content: 'Loading...', key: deleteKey, duration: 0 })
+    deleteFile(name)
+      .then(res => {
+        if (res.status === 200) {
+          const arr = list.filter(item => item.value !== name)
+          const seArr = selectData.filter(item => item !== name)
+          setSelectData(seArr)
+          setList(arr)
+          message.success({ content: '删除成功!', key: deleteKey, duration: 2 })
+        }
+      })
+      .catch(err => {
+        message.error(err.message)
+      })
   }
 
   return (
@@ -75,44 +119,53 @@ const ModelImage: FC<Props> = props => {
         width={800}
         bodyStyle={{
           height: 500,
-          overflowY: 'auto'
+          overflowY: 'auto',
+          position: 'relative'
         }}
         footer={
           <div className='modal-footer'>
-            <UploadImage
-              type={type}
-              onOk={(info, isExist: boolean = false) => {
-                let arr: Item[] = JSON.parse(JSON.stringify(list))
-                if (!isExist) {
-                  let obj = {
-                    checked: false,
-                    value: info
+            <Space size={20}>
+              <UploadImage
+                disabled={loading}
+                type={type}
+                onOk={(info, isExist: boolean = false) => {
+                  let arr: Item[] = JSON.parse(JSON.stringify(list))
+                  if (!isExist) {
+                    let obj = {
+                      checked: false,
+                      value: imagePath(info)
+                    }
+                    arr.unshift(obj)
                   }
-                  arr.unshift(obj)
-                }
-                setList(arr)
-              }}
-              onBefore={name => {
-                return list.map(item => item.value).includes(name)
-              }}
-            />
+                  setList(arr)
+                }}
+                onBefore={name => {
+                  return list.map(item => item.value).includes(name)
+                }}
+              />
+              <Button
+                disabled={loading}
+                onClick={() => {
+                  setShowDelete(!showDelete)
+                }}
+              >
+                {showDelete ? '隐藏' : '显示'}删除
+              </Button>
+            </Space>
 
             <Space size={12} style={{ marginLeft: 'auto' }}>
               <Button onClick={onCancel}>取消</Button>
               <Button
+                disabled={loading}
                 type='primary'
                 onClick={() => {
-                  const value = list
-                    .filter(item => item.checked)
-                    .map(item => item.value)
-                  if (!value.length) {
+                  if (!selectData.length) {
                     message.warning(
                       `请至少选择一个${type === 'image' ? '图片' : '视频'}`
                     )
                     return
                   }
-
-                  onOk(value)
+                  onOk(selectData)
                 }}
               >
                 确定
@@ -121,56 +174,106 @@ const ModelImage: FC<Props> = props => {
           </div>
         }
       >
-        <div className='model-items'>
-          {list.length ? (
-            list.map(item => (
-              <div
-                key={item.value}
-                className={item.checked ? 'model-item active' : 'model-item'}
-                onClick={() => {
-                  const arr: Item[] = JSON.parse(JSON.stringify(list))
-                  if (!isRadio) {
-                    arr.map(o => {
-                      if (o.value === item.value) o.checked = !o.checked
-                    })
-                  } else {
-                    arr.map(o => {
-                      o.checked = false
-                      if (o.value === item.value) {
-                        o.checked = !o.checked
-                      }
-                    })
-                  }
-                  setList(arr)
-                }}
-              >
-                <Tooltip title={item.value}>
+        <LoadAgain
+          loadAgain={loadAgain}
+          onLoad={() => {
+            setLoadAgain(false)
+            getList()
+          }}
+        >
+          <Spin tip='Loading...' spinning={loading} delay={500}>
+            <div className='model-items'>
+              {list.length ? (
+                list.map(item => (
                   <div
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      overflow: 'hidden'
-                    }}
+                    key={item.value}
+                    className={
+                      item.checked ? 'model-item active' : 'model-item'
+                    }
                   >
-                    {type === 'image' ? (
-                      <img src={imagePath(item.value)} alt='' />
-                    ) : (
-                      <video src={imagePath(item.value)}></video>
-                    )}
+                    {selectData.indexOf(item.value) > -1 ? (
+                      <div className='model-badge'>
+                        <Badge count={selectData.indexOf(item.value) + 1} />
+                      </div>
+                    ) : null}
+
+                    {!item.checked && showDelete ? (
+                      <Popconfirm
+                        placement='topRight'
+                        title={`确认删除该${
+                          type === 'image' ? '图片' : '视频'
+                        }？`}
+                        onConfirm={() => {
+                          deletePic(item.value)
+                        }}
+                      >
+                        <div className='delete-icon'>
+                          <CloseOutlined style={{ fontSize: 9 }} />
+                        </div>
+                      </Popconfirm>
+                    ) : null}
+
+                    <Tooltip title={item.value}>
+                      <div
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          overflow: 'hidden'
+                        }}
+                        onClick={() => {
+                          const arr: Item[] = JSON.parse(JSON.stringify(list))
+                          if (!isRadio) {
+                            arr.map(o => {
+                              if (o.value === item.value) {
+                                if (o.checked) {
+                                  o.checked = false
+                                  const newSelectData = selectData.filter(
+                                    j => j !== o.value
+                                  )
+                                  setSelectData(newSelectData)
+                                } else {
+                                  o.checked = true
+                                  const newSelectData = JSON.parse(
+                                    JSON.stringify(selectData)
+                                  )
+                                  newSelectData.push(o.value)
+                                  setSelectData(newSelectData)
+                                }
+                              }
+                            })
+                          } else {
+                            arr.map(o => {
+                              o.checked = false
+                              if (o.value === item.value) {
+                                o.checked = !o.checked
+                                setSelectData([o.value])
+                              }
+                            })
+                          }
+                          setList(arr)
+                        }}
+                      >
+                        {type === 'image' ? (
+                          <img src={imagePath(item.value)} alt='' />
+                        ) : (
+                          <video src={imagePath(item.value)}></video>
+                        )}
+                      </div>
+                    </Tooltip>
                   </div>
-                </Tooltip>
-              </div>
-            ))
-          ) : (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={`暂无${type === 'image' ? '图片' : '视频'}`}
-            />
-          )}
-        </div>
+                ))
+              ) : (
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description={`暂无${type === 'image' ? '图片' : '视频'}`}
+                />
+              )}
+            </div>
+          </Spin>
+        </LoadAgain>
       </Modal>
     </>
   )
