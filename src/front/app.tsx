@@ -21,7 +21,7 @@ export default function App(props: Props) {
     <Route element={<MasterPage />} >
       <Route path={paths.admin.edit} element={<EditPage />} />
       <Route path={paths.admin.password} element={<PasswordPage />} />
-      <Route path={paths.admin.remote} element={<RemotePage />} />
+      {/* <Route path={paths.admin.remote} element={<RemotePage />} /> */}
     </Route>
   </Routes>
 }
