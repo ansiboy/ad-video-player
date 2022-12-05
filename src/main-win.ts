@@ -51,7 +51,7 @@ const createWindow = async () => {
         ]
     }]);
 
-    win.loadURL(`http://localhost:${config.webPort}/`);
+    win.loadURL(`http://localhost:${config.webPort}/?${Date.now()}`);
     win.setMenu(menu);
 }
 
