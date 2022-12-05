@@ -1,8 +1,1 @@
-{
-    "user": {
-        "name": "admin",
-        "password": "000000"
-    },
-    "token": "77d38174-db35-9046-995a-1bf44ba9aacf",
-    "remoteControl": false
-}
+{"user":{"name":"admin","password":"000000"},"token":"fc3ad1cd-ee97-e018-219b-416929540d44","remoteControl":false}
