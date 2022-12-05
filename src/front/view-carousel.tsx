@@ -31,6 +31,13 @@ export default class ViewCarousel extends React.Component<ViewCarouselProps, Vie
 
         let children = componentChildrenArray(this.props.children);
         this.playItemSeconds = children.map(o => o.props as AdViewProps).map(o => o.playSeconds);
+        let currentIndex = props.activeIndex
+        if (currentIndex > children.length - 1) {
+            currentIndex = children.length - 1
+        }
+        else if (currentIndex < 0) {
+            currentIndex = 0
+        }
         this.state = { currentIndex: props.activeIndex || 0 }
     }
 
