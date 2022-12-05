@@ -6,8 +6,7 @@ import request from "../utils/http"
 /**
  * 登录
  * @date 2022-11-04
- * @param {string} values:{username:string
- * @param {string} password:string}
+ * @param {string} values:{username:string, password:string}
  * @returns {token:string}
  */
 export const login = async (values: { username: string, password: string }): Promise<{ token: string }> => {
@@ -66,7 +65,6 @@ export const uploadFile = async (file: any) => {
         message.error(data.message)
         return
       }
-
       resolve(data);
     } catch (err: any) {
       message.error(err.massge)
@@ -99,4 +97,33 @@ export const getRemoteControl = async () => {
 
 export const setRemoteControl = async (value: boolean) => {
   await request("/api/remoteControl/set", { body: { value } as any });
+}
+
+
+/**
+ * 删除文件
+ * @date 2022-11-09
+ * @param {文件名称} value:string
+ * @returns {any}
+ */
+export const deleteFile = async (value: string): Promise<{ status: number }> => {
+  return request<{ status: number }>("/api/media/delete", { method: "POST", body: { name: value } as any });
+}
+
+/**
+ * 开启远程控制
+ * @date 2022-11-09
+ * @returns {}
+ */
+export const startRemoteController = (): Promise<{ status: number }> => {
+  return request<{ status: number }>("/api/remoteControl/start", { method: "GET" })
+}
+
+/**
+ * 关闭远程控制
+ * @date 2022-11-09
+ * @returns {}
+ */
+export const stopRemoteController = (): Promise<{ status: number }> => {
+  return request<{ status: number }>("/api/remoteControl/stop", { method: "GET" })
 }

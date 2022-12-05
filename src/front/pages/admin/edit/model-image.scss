@@ -14,11 +14,31 @@
     border: #ddd 2px solid;
     width: 110px;
     height: 110px;
-    overflow: hidden;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+
+    .model-badge {
+      position: absolute;
+      left: 46px;
+      top: -15px;
+    }
+
+    .delete-icon {
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      right: -8px;
+      top: -8px;
+      background-color: #40a9ff;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     &.active {
       border: #40a9ff 2px solid;
@@ -74,7 +94,25 @@
     .sort-text {
       flex: 1;
       font-size: 14px;
-      
+
     }
+  }
+}
+
+.load-wrap {
+  width: auto;
+  height: auto;
+  position: relative;
+
+  .load {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

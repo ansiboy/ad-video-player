@@ -24,8 +24,6 @@ const request = async <T>(url: string, config: FetchApi): Promise<T> => {
   if (!config.headers[headerNames.contentType])
     config.headers[headerNames.contentType] = headerContentTypes.json;
 
-  if (config.method === "POST")
-    debugger;
 
   if (config.method === "POST" && config.body && config.headers[headerNames.contentType] == headerContentTypes.json)
     config.body = JSON.stringify(config.body)

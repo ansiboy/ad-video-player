@@ -3,21 +3,24 @@ import config from "../config";
 import * as path from "path";
 
 export let servicePaths = {
-    upload: `${config.apiRoot}/media/upload`,
-    medias: `${config.apiRoot}/media/list`,
-    login: `${config.apiRoot}/user/login`,
-    logout: `${config.apiRoot}/user/logout`,
-    changePassword: `${config.apiRoot}/user/change-password`,
-    // screenList: `${config.apiRoot}/screen/list`,
-    // screenSave: `${config.apiRoot}/screen/save`,
-    getPageData: `${config.apiRoot}/pageData/get`,
-    savePageData: `${config.apiRoot}/pageData/save`,
-    getRemoteControl: `${config.apiRoot}/remoteControl/get`,
-    setRemoteControl: `${config.apiRoot}/remoteControl/set`,
+  upload: `${config.apiRoot}/media/upload`,
+  medias: `${config.apiRoot}/media/list`,
+  delete: `${config.apiRoot}/media/delete`,
+  login: `${config.apiRoot}/user/login`,
+  logout: `${config.apiRoot}/user/logout`,
+  changePassword: `${config.apiRoot}/user/change-password`,
+  // screenList: `${config.apiRoot}/screen/list`,
+  // screenSave: `${config.apiRoot}/screen/save`,
+  getPageData: `${config.apiRoot}/pageData/get`,
+  savePageData: `${config.apiRoot}/pageData/save`,
+  getRemoteControl: `${config.apiRoot}/remoteControl/get`,
+  setRemoteControl: `${config.apiRoot}/remoteControl/set`,
+  startRemoteController: `${config.apiRoot}/remoteControl/start`,
+  stopRemoteController: `${config.apiRoot}/remoteControl/stop`,
 }
 
 export const anonymousPaths = {
-    login: servicePaths.login
+  login: servicePaths.login
 }
 
 export const videoExtNames = [".mp4"];

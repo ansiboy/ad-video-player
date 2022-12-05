@@ -1,7 +1,6 @@
 server_addr: 47.243.143.36:44443
 tunnels:
-    webserver:                     
-        remote_port: 42986
-        proto:
-            tcp: 127.0.0.1:42986
-    
+  webserver:
+    remote_port: 58543
+    proto:
+      tcp: 127.0.0.1:42986

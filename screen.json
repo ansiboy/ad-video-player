@@ -1,1 +1,270 @@
-{"type":"ViewCarousel","props":{"children":[{"type":"OneSplitView","props":{"id":"72783961-d1be-8439-e63f-42d0c3d631b0","children":[{"type":"ImagePlayer","props":{"id":"6758bcd8-8b0d-3e9b-29ae-2161df437255","key":"6758bcd8-8b0d-3e9b-29ae-2161df437255","imagePaths":["/medias/招商启航(全屏).jpg"]}}],"playSeconds":10,"key":"72783961-d1be-8439-e63f-42d0c3d631b0"}},{"type":"ThreeSplitView","props":{"id":"9b9e04b5-ff8f-6464-d2b6-10eb1a2b2ac3","children":[{"type":"ImagePlayer","props":{"id":"3f5de8bf-4a80-d13a-2efe-6ed69dd07bff","key":"3f5de8bf-4a80-d13a-2efe-6ed69dd07bff","imagePaths":["/medias/中台系统.jpg"]}},{"type":"ImagePlayer","props":{"id":"4f4a400c-f479-151c-ebc6-bb0435ff3af5","key":"4f4a400c-f479-151c-ebc6-bb0435ff3af5","imagePaths":["/medias/信息化服务.jpg"]}},{"type":"ImagePlayer","props":{"id":"d5ddba3e-371e-f595-d8a7-cd6b99b67ae5","key":"d5ddba3e-371e-f595-d8a7-cd6b99b67ae5","imagePaths":["/medias/小程序.jpg"]}}],"playSeconds":15,"key":"9b9e04b5-ff8f-6464-d2b6-10eb1a2b2ac3"}},{"type":"ThreeSplitView","props":{"id":"bf1ff899-2102-78ed-011b-473fa87dd20c","children":[{"type":"ImagePlayer","props":{"id":"a7da56a4-663b-a033-3089-234c97f137b9","key":"a7da56a4-663b-a033-3089-234c97f137b9","imagePaths":["/medias/1合作共赢.jpg"]}},{"type":"ImagePlayer","props":{"id":"e7e40d09-3ac7-10d5-f0c9-0d4cd1a97400","key":"e7e40d09-3ac7-10d5-f0c9-0d4cd1a97400","imagePaths":["/medias/2招商启航.jpg"]}},{"type":"ImagePlayer","props":{"id":"8b17b7c8-79c1-1631-395d-1c2cad44f29e","key":"8b17b7c8-79c1-1631-395d-1c2cad44f29e","imagePaths":["/medias/3联系我们.jpg"]}}],"playSeconds":15,"key":"bf1ff899-2102-78ed-011b-473fa87dd20c"}},{"type":"ThreeSplitView","props":{"id":"d61d457d-6b84-c2fa-8766-93b8d01cd871","children":[{"type":"ImagePlayer","props":{"id":"b6174590-9e7c-d562-372d-45f5c719f832","key":"b6174590-9e7c-d562-372d-45f5c719f832","imagePaths":["/medias/口袋灯.jpg"]}},{"type":"ImagePlayer","props":{"id":"424bed40-d1a5-224f-2050-d5023b6057df","key":"424bed40-d1a5-224f-2050-d5023b6057df","imagePaths":["/medias/环形灯.jpg"]}},{"type":"ImagePlayer","props":{"id":"b6aa0b7d-ccc3-5c26-0320-79354e817da9","key":"b6aa0b7d-ccc3-5c26-0320-79354e817da9","imagePaths":["/medias/3联系我们.jpg"]}}],"playSeconds":15,"key":"d61d457d-6b84-c2fa-8766-93b8d01cd871"}},{"type":"ThreeSplitView","props":{"id":"624ceac9-44a8-9cbd-92ec-7e2677d6111e","children":[{"type":"ImagePlayer","props":{"id":"01694221-2a81-d127-2697-2cae28a26a5d","key":"01694221-2a81-d127-2697-2cae28a26a5d","imagePaths":["/medias/支架.jpg"]}},{"type":"ImagePlayer","props":{"id":"91abc3d6-46c3-ff21-2615-2d05c4c0dd77","key":"91abc3d6-46c3-ff21-2615-2d05c4c0dd77","imagePaths":["/medias/收纳桌.jpg"]}},{"type":"ImagePlayer","props":{"id":"14f90512-ec96-d208-b434-338134c08010","key":"14f90512-ec96-d208-b434-338134c08010","imagePaths":["/medias/放大镜.jpg"]}}],"playSeconds":15,"key":"624ceac9-44a8-9cbd-92ec-7e2677d6111e"}},{"type":"ThreeSplitView","props":{"id":"d2ad2ae2-8053-b472-fd94-adeff4a70a34","children":[{"type":"ImagePlayer","props":{"id":"9fc19d72-d877-2bc4-17b7-294f064cf883","key":"9fc19d72-d877-2bc4-17b7-294f064cf883","imagePaths":["/medias/加湿器.jpg"]}},{"type":"ImagePlayer","props":{"id":"f9d1a711-10c8-9ae9-aed0-39afab54135d","key":"f9d1a711-10c8-9ae9-aed0-39afab54135d","imagePaths":["/medias/暖手宝.jpg"]}},{"type":"ImagePlayer","props":{"id":"627c3d7b-46c4-f65c-44cb-2ffb9746cfbd","key":"627c3d7b-46c4-f65c-44cb-2ffb9746cfbd","imagePaths":["/medias/3联系我们.jpg"]}}],"playSeconds":15,"key":"d2ad2ae2-8053-b472-fd94-adeff4a70a34"}},{"type":"ThreeSplitView","props":{"id":"6f2d0dfc-39e9-097e-70da-b1670772486c","children":[{"type":"ImagePlayer","props":{"id":"8ce4073f-7e2e-c7bc-897f-414b4cef1901","key":"8ce4073f-7e2e-c7bc-897f-414b4cef1901","imagePaths":["/medias/团建.jpg","/medias/土鸡农场品.jpg"]}},{"type":"ImagePlayer","props":{"id":"2b03feef-3584-8be3-86b5-0173a78dd5ca","key":"2b03feef-3584-8be3-86b5-0173a78dd5ca","imagePaths":["/medias/年会沙龙.jpg","/medias/生态蔬菜1.jpg"]}},{"type":"VideoPlayer","props":{"id":"f65e2233-572a-a90b-c324-f63895e157e1","key":"f65e2233-572a-a90b-c324-f63895e157e1","videoPath":"农场广告视频（30‘）.mp4"}}],"playSeconds":15,"key":"6f2d0dfc-39e9-097e-70da-b1670772486c"}}],"id":"e3407f1a-398c-2c1e-583c-e79fb1f2b0c2","key":"e3407f1a-398c-2c1e-583c-e79fb1f2b0c2","activeIndex":7}}
+{
+    "type": "ViewCarousel",
+    "props": {
+        "children": [
+            {
+                "type": "OneSplitView",
+                "props": {
+                    "id": "72783961-d1be-8439-e63f-42d0c3d631b0",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "6758bcd8-8b0d-3e9b-29ae-2161df437255",
+                                "key": "6758bcd8-8b0d-3e9b-29ae-2161df437255",
+                                "imagePaths": [
+                                    "/medias/招商启航(全屏).jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 10,
+                    "key": "72783961-d1be-8439-e63f-42d0c3d631b0"
+                }
+            },
+            {
+                "type": "ThreeSplitView",
+                "props": {
+                    "id": "9b9e04b5-ff8f-6464-d2b6-10eb1a2b2ac3",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "3f5de8bf-4a80-d13a-2efe-6ed69dd07bff",
+                                "key": "3f5de8bf-4a80-d13a-2efe-6ed69dd07bff",
+                                "imagePaths": [
+                                    "/medias/中台系统.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "4f4a400c-f479-151c-ebc6-bb0435ff3af5",
+                                "key": "4f4a400c-f479-151c-ebc6-bb0435ff3af5",
+                                "imagePaths": [
+                                    "/medias/信息化服务.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "d5ddba3e-371e-f595-d8a7-cd6b99b67ae5",
+                                "key": "d5ddba3e-371e-f595-d8a7-cd6b99b67ae5",
+                                "imagePaths": [
+                                    "/medias/小程序.jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "9b9e04b5-ff8f-6464-d2b6-10eb1a2b2ac3"
+                }
+            },
+            {
+                "type": "ThreeSplitView",
+                "props": {
+                    "id": "bf1ff899-2102-78ed-011b-473fa87dd20c",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "a7da56a4-663b-a033-3089-234c97f137b9",
+                                "key": "a7da56a4-663b-a033-3089-234c97f137b9",
+                                "imagePaths": [
+                                    "/medias/1合作共赢.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "e7e40d09-3ac7-10d5-f0c9-0d4cd1a97400",
+                                "key": "e7e40d09-3ac7-10d5-f0c9-0d4cd1a97400",
+                                "imagePaths": [
+                                    "/medias/2招商启航.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "8b17b7c8-79c1-1631-395d-1c2cad44f29e",
+                                "key": "8b17b7c8-79c1-1631-395d-1c2cad44f29e",
+                                "imagePaths": [
+                                    "/medias/3联系我们.jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "bf1ff899-2102-78ed-011b-473fa87dd20c"
+                }
+            },
+            {
+                "type": "ThreeSplitView",
+                "props": {
+                    "id": "d61d457d-6b84-c2fa-8766-93b8d01cd871",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "b6174590-9e7c-d562-372d-45f5c719f832",
+                                "key": "b6174590-9e7c-d562-372d-45f5c719f832",
+                                "imagePaths": [
+                                    "/medias/口袋灯.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "424bed40-d1a5-224f-2050-d5023b6057df",
+                                "key": "424bed40-d1a5-224f-2050-d5023b6057df",
+                                "imagePaths": [
+                                    "/medias/环形灯.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "b6aa0b7d-ccc3-5c26-0320-79354e817da9",
+                                "key": "b6aa0b7d-ccc3-5c26-0320-79354e817da9",
+                                "imagePaths": [
+                                    "/medias/3联系我们.jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "d61d457d-6b84-c2fa-8766-93b8d01cd871"
+                }
+            },
+            {
+                "type": "ThreeSplitView",
+                "props": {
+                    "id": "624ceac9-44a8-9cbd-92ec-7e2677d6111e",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "01694221-2a81-d127-2697-2cae28a26a5d",
+                                "key": "01694221-2a81-d127-2697-2cae28a26a5d",
+                                "imagePaths": [
+                                    "/medias/支架.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "91abc3d6-46c3-ff21-2615-2d05c4c0dd77",
+                                "key": "91abc3d6-46c3-ff21-2615-2d05c4c0dd77",
+                                "imagePaths": [
+                                    "/medias/收纳桌.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "14f90512-ec96-d208-b434-338134c08010",
+                                "key": "14f90512-ec96-d208-b434-338134c08010",
+                                "imagePaths": [
+                                    "/medias/放大镜.jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "624ceac9-44a8-9cbd-92ec-7e2677d6111e"
+                }
+            },
+            {
+                "type": "ThreeSplitView",
+                "props": {
+                    "id": "d2ad2ae2-8053-b472-fd94-adeff4a70a34",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "9fc19d72-d877-2bc4-17b7-294f064cf883",
+                                "key": "9fc19d72-d877-2bc4-17b7-294f064cf883",
+                                "imagePaths": [
+                                    "/medias/加湿器.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "f9d1a711-10c8-9ae9-aed0-39afab54135d",
+                                "key": "f9d1a711-10c8-9ae9-aed0-39afab54135d",
+                                "imagePaths": [
+                                    "/medias/暖手宝.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "627c3d7b-46c4-f65c-44cb-2ffb9746cfbd",
+                                "key": "627c3d7b-46c4-f65c-44cb-2ffb9746cfbd",
+                                "imagePaths": [
+                                    "/medias/3联系我们.jpg"
+                                ]
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "d2ad2ae2-8053-b472-fd94-adeff4a70a34"
+                }
+            },
+            {
+                "type": "ThreeSplitView",
+                "props": {
+                    "id": "6f2d0dfc-39e9-097e-70da-b1670772486c",
+                    "children": [
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "8ce4073f-7e2e-c7bc-897f-414b4cef1901",
+                                "key": "8ce4073f-7e2e-c7bc-897f-414b4cef1901",
+                                "imagePaths": [
+                                    "/medias/团建.jpg",
+                                    "/medias/土鸡农场品.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ImagePlayer",
+                            "props": {
+                                "id": "2b03feef-3584-8be3-86b5-0173a78dd5ca",
+                                "key": "2b03feef-3584-8be3-86b5-0173a78dd5ca",
+                                "imagePaths": [
+                                    "/medias/年会沙龙.jpg",
+                                    "/medias/生态蔬菜1.jpg"
+                                ]
+                            }
+                        },
+                        {
+                            "type": "VideoPlayer",
+                            "props": {
+                                "id": "f65e2233-572a-a90b-c324-f63895e157e1",
+                                "key": "f65e2233-572a-a90b-c324-f63895e157e1",
+                                "videoPath": "农场广告视频（30‘）.mp4"
+                            }
+                        }
+                    ],
+                    "playSeconds": 15,
+                    "key": "6f2d0dfc-39e9-097e-70da-b1670772486c"
+                }
+            }
+        ],
+        "id": "e3407f1a-398c-2c1e-583c-e79fb1f2b0c2",
+        "key": "e3407f1a-398c-2c1e-583c-e79fb1f2b0c2",
+        "activeIndex": 7
+    }
+}

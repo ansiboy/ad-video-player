@@ -1,7 +1,7 @@
 import { Button, Space } from 'antd'
 import React from 'react'
 import ModelImage from '../pages/admin/edit/modelImage'
-import { imagePath } from '../utils/utils'
+import { mediaPath } from '../utils/utils'
 import { EditorProps, EditorState } from './property-editor'
 
 export class VideoEditor extends React.Component<
@@ -24,7 +24,7 @@ export class VideoEditor extends React.Component<
         <Space size={12} direction='vertical'>
           <video
             style={{ border: '#ddd 1px solid' }}
-            src={imagePath(value)}
+            src={mediaPath(value)}
             width={100}
             height={100}
           ></video>
@@ -44,7 +44,7 @@ export class VideoEditor extends React.Component<
             isRadio
             onOk={value => {
               this.setState({ visible: false })
-              this.props.changed(value[0])
+              this.props.changed(mediaPath(value[0]))
             }}
             onCancel={() => this.setState({ visible: false })}
           />
