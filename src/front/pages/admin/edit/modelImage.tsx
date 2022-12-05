@@ -14,7 +14,7 @@ import React, { FC, useEffect, useState } from 'react'
 import UploadImage from './uploadImage'
 import './model-image.scss'
 import { deleteFile, getAllList } from '../../../services/user'
-import { imagePath } from '../../../utils/utils'
+import { mediaPath } from '../../../utils/utils'
 import LoadAgain from './loadAgain'
 
 interface Props {
@@ -133,7 +133,7 @@ const ModelImage: FC<Props> = props => {
                   if (!isExist) {
                     let obj = {
                       checked: false,
-                      value: imagePath(info)
+                      value: mediaPath(info)
                     }
                     arr.unshift(obj)
                   }
@@ -257,9 +257,9 @@ const ModelImage: FC<Props> = props => {
                         }}
                       >
                         {type === 'image' ? (
-                          <img src={imagePath(item.value)} alt='' />
+                          <img src={mediaPath(item.value)} alt='' />
                         ) : (
-                          <video src={imagePath(item.value)}></video>
+                          <video src={mediaPath(item.value)}></video>
                         )}
                       </div>
                     </Tooltip>

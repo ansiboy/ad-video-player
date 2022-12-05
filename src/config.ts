@@ -5,7 +5,8 @@ let config = {
     webPort: 42986,
     apiRoot: "/api",
     mgrokDirectoryName: mediasDirectoryName,
-    mediasPhysicalPath: path.join(__dirname, `../${mediasDirectoryName}`)
+    mediasPhysicalPath: path.join(__dirname, `../${mediasDirectoryName}`),
+    mediasVirtualPath: `/${mediasDirectoryName}`
 }
 
 export default config;

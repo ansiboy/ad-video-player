@@ -5,7 +5,7 @@ import 'sortablejs'
 import { ReactSortable } from 'react-sortablejs'
 
 import { UnorderedListOutlined } from '@ant-design/icons'
-import { imagePath } from '../../../utils/utils'
+import { mediaPath } from '../../../utils/utils'
 
 interface Props {
   data: string[]
@@ -30,7 +30,7 @@ const SortImageEditor: FC<Props> = props => {
               <UnorderedListOutlined />
             </div>
             <div className='sort-image'>
-              <Image width={50} height={50} src={imagePath(item)} alt='image' />
+              <Image width={50} height={50} src={mediaPath(item)} alt='image' />
             </div>
             <div className='sort-text'>{item}</div>
           </li>

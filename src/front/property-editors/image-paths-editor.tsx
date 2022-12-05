@@ -5,7 +5,7 @@ import { guid } from 'maishu-toolkit'
 import { PlusOutlined } from '@ant-design/icons'
 import ModelImage from '../pages/admin/edit/modelImage'
 import SortImageEditor from '../pages/admin/edit/sortImageEditor'
-import { imagePath } from '../utils/utils'
+import { mediaPath } from '../utils/utils'
 
 type Props = EditorProps<string[]> & {
   type: string
@@ -24,7 +24,7 @@ export default function CreateImagePathsEditorType(type: 'video' | 'image') {
     }
 
     render() {
-      let imagePaths = (this.props.propertyValue || []).map(o => imagePath(o));
+      let imagePaths = (this.props.propertyValue || []).map(o => mediaPath(o));
       return (
         <>
           <Space direction='vertical' size={10}>
@@ -54,7 +54,7 @@ export default function CreateImagePathsEditorType(type: 'video' | 'image') {
               data={imagePaths}
               onOk={value => {
                 this.setState({ visible: false })
-                this.props.changed(value.map(o => imagePath(o)))
+                this.props.changed(value.map(o => mediaPath(o)))
               }}
               onCancel={() => this.setState({ visible: false })}
             />

@@ -11,7 +11,7 @@ import React, { FC, useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
 import { uploadFile } from '../../../services/user'
 import { httpContentTypes, supportMediaTypes } from '../../../common'
-import { imagePath } from '../../../utils/utils'
+import { mediaPath } from '../../../utils/utils'
 
 interface Props {
   type?: 'video' | 'image'
@@ -28,7 +28,7 @@ const UploadImage: FC<Props> = props => {
     const key = 'uploadding'
     const formData = new FormData()
     formData.append('image', file)
-    const isExist = props.onBefore(imagePath(file.name))
+    const isExist = props.onBefore(mediaPath(file.name))
     if (isExist) {
       await Modal.confirm({
         title: '该图片名称已存在,是否覆盖？',

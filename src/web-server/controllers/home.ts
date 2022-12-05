@@ -18,7 +18,7 @@ export default class HomeController {
       throw errors.pathNotExists(config.mediasPhysicalPath);
 
     let files = fs.readdirSync(config.mediasPhysicalPath);
-    const filesList = files.map(item => imagePath(item))
+    const filesList = files.map(item => mediaPath(item))
     return filesList;
   }
 
@@ -26,7 +26,7 @@ export default class HomeController {
   async delete(@routeData d: { name: string }) {
     if (!d.name)
       throw errors.routeDataFieldNull("name");
-    const filePath = path.join(__dirname, `../../../${imagePath(d.name)}`)
+    const filePath = path.join(config.mediasPhysicalPath, mediaPath(d.name))
     if (!fs.existsSync(filePath))
       throw errors.pathNotExists(config.mediasPhysicalPath);
     fs.unlinkSync(filePath)
@@ -165,13 +165,15 @@ export default class HomeController {
 }
 
 /**
- * 图片路径
+ * 媒体路径
  * @date 2022-11-07
- * @param {any} imagePath:string
+ * @param {any} mediaPath:string
  * @returns {any}
  */
-export const imagePath = (imagePath: string): string => {
-  if (imagePath.startsWith("/medias/"))
-    return imagePath;
-  return `/medias/${imagePath}`
+export const mediaPath = (mediaPath: string): string => {
+  if (mediaPath.startsWith(config.mediasVirtualPath)) //(imagePath.startsWith("/medias/"))
+    return mediaPath;
+  return `${config.mediasVirtualPath}/${mediaPath}`
 }
+
+

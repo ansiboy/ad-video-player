@@ -10,7 +10,11 @@ export class NumberInputEditor extends React.Component<EditorProps<number>, Edit
     }
     render(): React.ReactNode {
         let { propertyValue: value } = this.state;
-        return <InputNumber value={value} style={{ width: "100%" }} />
+        return <InputNumber value={value} style={{ width: "100%" }}
+            onChange={e => {
+                if (!e) return
+                this.props.changed(e)
+            }} />
     }
 }
 

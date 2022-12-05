@@ -6,8 +6,7 @@ import request from "../utils/http"
 /**
  * 登录
  * @date 2022-11-04
- * @param {string} values:{username:string
- * @param {string} password:string}
+ * @param {string} values:{username:string, password:string}
  * @returns {token:string}
  */
 export const login = async (values: { username: string, password: string }): Promise<{ token: string }> => {
