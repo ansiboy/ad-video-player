@@ -19,7 +19,7 @@ export default function MasterPage() {
                 items={[
                     { key: paths.admin.edit, icon: <WindowsOutlined />, label: "屏幕设计" },
                     { key: paths.admin.password, icon: <LockOutlined />, label: "修改密码" },
-                    { key: paths.admin.remote, icon: <ApiOutlined />, label: "远程控制" }
+                    // { key: paths.admin.remote, icon: <ApiOutlined />, label: "远程控制" }
                 ]}>
             </Menu>
             <Footer style={{ paddingLeft: 0, paddingRight: 0, textAlign: "center", background: "white" }}>
