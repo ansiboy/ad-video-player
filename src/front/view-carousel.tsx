@@ -38,7 +38,7 @@ export default class ViewCarousel extends React.Component<ViewCarouselProps, Vie
         else if (currentIndex < 0) {
             currentIndex = 0
         }
-        this.state = { currentIndex: props.activeIndex || 0 }
+        this.state = { currentIndex }
     }
 
     componentDidMount(): void {

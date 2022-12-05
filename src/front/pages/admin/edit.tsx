@@ -28,7 +28,7 @@ export default function EditPage() {
 
     let contextValue: EditorPageContextValue = {
         screenIndex: screenIndex,
-        setScreenIndex: (value) => {
+        setActiveScreenIndex: (value) => {
             setScreenIndex(value);
             let screens = (pageData as ComponentData).props.children || [];
             setSelectedComponentId(screens[value].props.id);
@@ -43,22 +43,22 @@ export default function EditPage() {
         },
         getPageData() {
             return pageData;
-        }
+        },
+        changeScreenIndex(oldIndex, newIndex) {
+            let screens = (pageData as ComponentData).props.children || [];
+            let screen = screens.filter((o, i) => i == oldIndex)[0]
+            screens = screens.filter((o) => o != screen)
+            console.assert(screen != undefined)
+            screens.splice(newIndex, 0, screen)
+            pageData = JSON.parse(JSON.stringify(pageData))
+            setPageData(pageData)
+        },
     };
 
     useEffect(() => {
         loadComponentData().then(pageData => {
             setPageData(pageData);
             setScreensCount((pageData.props.children || []).length);
-
-            // componentPropertyChanged.add(args => {
-            //     let c = findComponentData(args.componentId, pageData as ComponentData);
-            //     if (c) {
-            //         c.props[args.propertyName as keyof ComponentProps] = args.propertyValue;
-            //         pageData = JSON.parse(JSON.stringify(pageData));
-            //         setPageData(pageData);
-            //     }
-            // })
         })
 
     }, [])

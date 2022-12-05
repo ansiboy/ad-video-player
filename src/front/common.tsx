@@ -28,17 +28,19 @@ export let paths = {
 export let ComponentRelateion = React.createContext<{ parent: React.Component, children: React.Component[] }>(null as any);
 
 export type EditorPageContextValue = {
-    screenIndex: number, setScreenIndex: (value: number) => void,
+    screenIndex: number, setActiveScreenIndex: (value: number) => void,
     selectedComponentId: string | null, setSelectedComponentId: (value: string) => void,
     getPageData: () => ComponentData | null,
     setPageData: (pageData: ComponentData) => void,
+    changeScreenIndex: (oldIndex: number, newIndex: number) => void,
 };
 export let EditorPageContext = React.createContext<EditorPageContextValue>(null as any);
 
 export let strings = {
     okText: "确定",
     cancelText: "取消",
-    saveSuccess: "保存成功"
+    saveSuccess: "保存成功",
+    tabSortable: "拖动标签调整屏幕顺序"
 }
 
 export const DefaultPlaySeconds = 15;

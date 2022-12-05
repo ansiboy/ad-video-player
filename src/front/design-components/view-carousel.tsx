@@ -1,9 +1,10 @@
 import { Empty } from "antd";
 import React from "react";
 import { AdView } from "../ad-views/ad-view";
-import { componentChildrenArray, ComponentRelateion, EditorPageContext } from "../common";
+import { componentChildrenArray, ComponentRelateion, EditorPageContext, EditorPageContextValue, strings } from "../common";
 import { ViewCarouselProps } from "../view-carousel";
 import "./view-carousel.scss";
+import Sortable from "sortablejs"
 
 const contentStyle: React.CSSProperties = {
     height: '450px',
@@ -17,6 +18,8 @@ interface State {
     // activeIndex: number
 }
 
+const SLICK_NORMAL = "slick-normal"
+
 export default class ViewCarouselDesign extends React.Component<ViewCarouselProps, State> {
 
     private children: AdView[] = [];
@@ -25,6 +28,18 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
         super(props);
 
         this.state = { activeIndex: 0 }
+    }
+
+    ref(element: HTMLElement | null, args: EditorPageContextValue) {
+        if (!element) return
+
+        new Sortable(element, {
+            filter: `.${SLICK_NORMAL}`,
+            onEnd: (evt) => {
+                debugger
+                args.changeScreenIndex(evt.oldIndex || 0, evt.newIndex || 0)
+            }
+        })
     }
 
     render(): React.ReactNode {
@@ -36,9 +51,11 @@ export default class ViewCarouselDesign extends React.Component<ViewCarouselProp
             {args => {
                 return <ComponentRelateion.Provider value={{ parent: this, children: this.children }}>
                     <div className="ant-carousel">
-                        <ul className="slick-dots slick-dots-bottom" style={{ display: "block", position: "unset" }}>
-                            {children.map((c, i) => <li key={i} className={args.screenIndex == i ? "slick-active" : ""}>
-                                <button onClick={() => args.setScreenIndex(i)}>{i}</button>
+                        <ul className="slick-dots slick-dots-bottom" style={{ display: "block", position: "unset" }}
+                            ref={e => this.ref(e, args)}>
+                            {children.map((c, i) => <li key={i} className={args.screenIndex == i ? "slick-active" : SLICK_NORMAL}
+                                title={args.screenIndex == i ? strings.tabSortable : ""}>
+                                <button onClick={() => args.setActiveScreenIndex(i)}>{i}</button>
                             </li>)}
                         </ul>
                     </div>
