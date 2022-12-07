@@ -10,14 +10,14 @@ export class VideoEditor extends React.Component<
     visible: boolean
   }
 > {
-  constructor (props: VideoEditor['props']) {
+  constructor(props: VideoEditor['props']) {
     super(props)
 
     this.state = { propertyValue: props.propertyValue, visible: false }
   }
 
   // this.props.changed(e.target.value);
-  render (): React.ReactNode {
+  render(): React.ReactNode {
     let { propertyValue: value = '' } = this.state
     return (
       <div>
@@ -44,7 +44,7 @@ export class VideoEditor extends React.Component<
             isRadio
             onOk={value => {
               this.setState({ visible: false })
-              this.props.changed(mediaPath(value[0]))
+              this.props.changed(value[0])
             }}
             onCancel={() => this.setState({ visible: false })}
           />
