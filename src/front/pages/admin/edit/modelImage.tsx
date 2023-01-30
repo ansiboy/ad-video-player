@@ -133,7 +133,7 @@ const ModelImage: FC<Props> = props => {
                   if (!isExist) {
                     let obj = {
                       checked: false,
-                      value: mediaPath(info)
+                      value: info
                     }
                     arr.unshift(obj)
                   }
@@ -200,9 +200,8 @@ const ModelImage: FC<Props> = props => {
                     {!item.checked && showDelete ? (
                       <Popconfirm
                         placement='topRight'
-                        title={`确认删除该${
-                          type === 'image' ? '图片' : '视频'
-                        }？`}
+                        title={`确认删除该${type === 'image' ? '图片' : '视频'
+                          }？`}
                         onConfirm={() => {
                           deletePic(item.value)
                         }}

@@ -55,6 +55,7 @@ const createWindow = async () => {
     win.setMenu(menu);
 }
 
+app.commandLine.appendSwitch("--disable-http-cache");
 app.whenReady().then(() => {
     createWindow()
 

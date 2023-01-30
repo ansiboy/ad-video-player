@@ -3,6 +3,7 @@ import { AdPlayer, AdPlayerProps } from "./ad-player";
 import { Carousel } from "./image-player/carousel";
 import "./image-player.scss";
 import { Empty } from "antd";
+import { mediaPath } from "../utils/utils";
 
 export interface Props extends AdPlayerProps {
     imagePaths?: string[]
@@ -33,7 +34,7 @@ export default class ImagePlayer extends AdPlayer<Props> {
             return <Empty description="暂无图片" />
         }
         if (imagePaths.length == 1) {
-            return <img className="player-image" src={imagePaths[0]} />
+            return <img className="player-image" src={mediaPath(imagePaths[0])} />
         }
         return <div className="carousel slide" ref={e => {
             if (!e || this.carouselElement)
@@ -50,7 +51,7 @@ export default class ImagePlayer extends AdPlayer<Props> {
             <div className="carousel-inner">
                 {imagePaths.map((o, i) =>
                     <div key={i} className="item">
-                        <img className="player-image" src={o} />
+                        <img className="player-image" src={mediaPath(o)} />
                     </div>)}
             </div>
         </div>

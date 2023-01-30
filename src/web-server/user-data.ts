@@ -1,4 +1,3 @@
-import userData from "./user-data.json";
 import * as fs from "fs";
 import * as path from "path";
 import errors from "./controllers/errors";

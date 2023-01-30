@@ -1,10 +1,13 @@
 ## 开发说明
 1. front 文件夹为前端文件夹
-2. player 为播放器文件夹
+2. web-server 为后端文件夹
 3. admin 为后台管理文件
+## WEB 运行
+1. node ./out/web-server/index.js
+1. 前台地址 http://localhost:42986
+1. 后台登录 http://localhost:42986/admin/login 用户名: admin 密码：000000
+## 本地运行
+1. 点击 run.vsb
 
-## 项目生成
-1. 进入 front 文件夹，运行 "npm run build" 命令
-2. 进入 player 文件夹，修改 "build/index.html" 文件，把 "/static/js"，"/static/css" 路径改为 "./static/js"，"./static/css"。
-3. 在 player 文件夹下，运行 "npm run start" 命令启动项目
+
 

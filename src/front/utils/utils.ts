@@ -5,7 +5,9 @@
  * @returns {any}
  */
 export const mediaPath = (mediaPath: string): string => {
-    if (mediaPath.startsWith("/medias/"))
+    if (mediaPath.startsWith("/medias/")) {
         return mediaPath;
+    }
+
     return `/medias/${mediaPath}`
 }

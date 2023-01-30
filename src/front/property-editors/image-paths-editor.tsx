@@ -1,11 +1,9 @@
 import { EditorProps, EditorState } from './property-editor'
 import { Button, Input, Space } from 'antd'
 import React from 'react'
-import { guid } from 'maishu-toolkit'
 import { PlusOutlined } from '@ant-design/icons'
 import ModelImage from '../pages/admin/edit/modelImage'
 import SortImageEditor from '../pages/admin/edit/sortImageEditor'
-import { mediaPath } from '../utils/utils'
 
 type Props = EditorProps<string[]> & {
   type: string
@@ -24,7 +22,7 @@ export default function CreateImagePathsEditorType(type: 'video' | 'image') {
     }
 
     render() {
-      let imagePaths = (this.props.propertyValue || []).map(o => mediaPath(o));
+      let imagePaths = (this.props.propertyValue || []).map(o => o);
       return (
         <>
           <Space direction='vertical' size={10}>
@@ -54,7 +52,7 @@ export default function CreateImagePathsEditorType(type: 'video' | 'image') {
               data={imagePaths}
               onOk={value => {
                 this.setState({ visible: false })
-                this.props.changed(value.map(o => mediaPath(o)))
+                this.props.changed(value.map(o => o))
               }}
               onCancel={() => this.setState({ visible: false })}
             />

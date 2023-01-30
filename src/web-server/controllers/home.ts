@@ -18,7 +18,7 @@ export default class HomeController {
       throw errors.pathNotExists(config.mediasPhysicalPath);
 
     let files = fs.readdirSync(config.mediasPhysicalPath);
-    const filesList = files.map(item => mediaPath(item))
+    const filesList = files.map(item => item)
     return filesList;
   }
 
@@ -90,6 +90,7 @@ export default class HomeController {
     let pageDataPath = this.getPageDataPath();
     let pageDataText = fs.readFileSync(pageDataPath).toString();
     let pageData = JSON.parse(pageDataText);
+    
     return pageData;
   }
 
