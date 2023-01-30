@@ -1,4 +1,4 @@
-FROM node:laster  
+FROM node:latest
 
 # 镜像作者
 LABEL maintainer="179570087@qq.com"  
