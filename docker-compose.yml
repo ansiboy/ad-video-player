@@ -1,0 +1,11 @@
+version: '2'
+services:
+  web:
+    build: .
+    restart: always
+    container_name: 'ad-video-player'
+    volumes:
+      - .:/home/ad-video-player 
+    image: node
+    ports:
+      - 42986:42986
