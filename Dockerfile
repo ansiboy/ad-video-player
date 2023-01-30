@@ -13,7 +13,7 @@ WORKDIR /home/ad-video-player
 ENV NODE_ENV=production  
 
 # 初始化项目
-RUN npm install  
+RUN npm install -f  
 
 # 生成out
 RUN tsc -p src
