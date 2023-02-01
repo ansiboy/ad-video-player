@@ -3,3 +3,4 @@ web-server/static
 build
 *.map
 out
+auto-run.vbs
