@@ -8,12 +8,6 @@
     <source id="mp4" src="https://ansiboy.github.io/ad-video-player/content/example.mp4" type="video/mp4">
 </video>
 
-## 后台演示地址
-
-http://47.243.143.36:49886/admin/login
-
-用户名：admin 密码: 000000
-
 ## 软件下载
 
 [点击下载](https://ansiboy.github.io/ad-video-player/download/ad-video-player.zip)
